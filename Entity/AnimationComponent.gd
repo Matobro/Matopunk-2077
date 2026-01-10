@@ -39,9 +39,17 @@ func handle_orientation(body: CharacterBody2D, look_target: Vector2):
         body.scale.x *= -1
         is_facing_right = false
 
-func handle_movement_animation(body: CharacterBody2D, move_direction: float, look_target: Vector2, is_run: bool, is_crouch: bool):
+func handle_movement_animation(body: CharacterBody2D, move_direction: float, look_target: Vector2, is_run: bool, is_crouch: bool, is_grounded: bool):
     handle_orientation(body, look_target)
 
+    ## Insert jump animation here
+    if !is_grounded:
+        animation_player.play(idle)
+        animation_player.speed_scale = idle_speed
+        return
+
+    #############################
+    
     if move_direction == 0:
         if is_crouch:
             animation_player.play(crouch_idle)

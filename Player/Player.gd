@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	gravity_component.apply_gravity(self, delta)
 	movement_component.handle_horizontal_movement(self, input_x, run, moving_forward, crouch)
 
-	animation_component.handle_movement_animation(self, input_x, aim, run, crouch)
+	animation_component.handle_movement_animation(self, input_x, aim, run, crouch, is_grounded)
 	animation_component.handle_arms(aim)
 
 	if shoot:

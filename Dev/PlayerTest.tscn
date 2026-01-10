@@ -34,8 +34,8 @@
 [ext_resource type="Texture2D" uid="uid://d0j7ge4rsa4yr" path="res://Lights/pornadlight.png" id="30_pwwdw"]
 [ext_resource type="Texture2D" uid="uid://belnye7erdlp4" path="res://Lights/porndoorlight.png" id="31_8rgm3"]
 [ext_resource type="Texture2D" uid="uid://4wgoq3563yeb" path="res://Lights/pornwindowlight.png" id="32_qjbj1"]
-[ext_resource type="Resource" uid="uid://bbljodtbehq3y" path="res://Weapons/Data/Smg.tres" id="32_s80li"]
 [ext_resource type="Script" uid="uid://cc86kkjl2u3l6" path="res://Dev/SpawnWeapon.gd" id="33_s80li"]
+[ext_resource type="Resource" uid="uid://b8tur8l144f1w" path="res://Weapons/Data/Shotgun.tres" id="36_q2622"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oscfj"]
 texture = ExtResource("17_pvuc5")
@@ -767,4 +767,4 @@ one_way_collision = true
 
 [node name="DevSpawnWeapon" type="Node2D" parent="."]
 script = ExtResource("33_s80li")
-weapon_data = ExtResource("32_s80li")
+weapon_data = ExtResource("36_q2622")

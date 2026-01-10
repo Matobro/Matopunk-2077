@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=8 format=3 uid="uid://bwwtg0k35tanh"]
+
+[ext_resource type="PackedScene" uid="uid://dxk14kcccbsen" path="res://FX/Bullet.tscn" id="1_7my7j"]
+[ext_resource type="Script" uid="uid://dqao67p2qiid5" path="res://Weapons/Scripts/WeaponData.gd" id="1_gdsj6"]
+[ext_resource type="PackedScene" uid="uid://br1xajstluofj" path="res://Weapons/Scenes/Smg.tscn" id="2_06jce"]
+[ext_resource type="AudioStream" uid="uid://cyoaggyvkerhs" path="res://Weapons/Sounds/smg_reload.mp3" id="2_kfsiq"]
+[ext_resource type="Texture2D" uid="uid://8wdcd1crbyx7" path="res://Weapons/Sprites/smg_icon.png" id="3_u75j3"]
+[ext_resource type="AudioStream" uid="uid://117wd01o1t30" path="res://Weapons/Sounds/smg_fire.mp3" id="3_ygedt"]
+[ext_resource type="Texture2D" uid="uid://cguvxh4t4c1fi" path="res://Weapons/Sprites/smg.png" id="4_u75j3"]
+
+[resource]
+script = ExtResource("1_gdsj6")
+weapon_scene = ExtResource("2_06jce")
+weapon_sprite = ExtResource("4_u75j3")
+weapon_sprite_color = Color(1, 0.27450982, 0.21176471, 1)
+weapon_icon = ExtResource("3_u75j3")
+bullet = ExtResource("1_7my7j")
+shoot = ExtResource("3_ygedt")
+reload = ExtResource("2_kfsiq")
+metadata/_custom_type_script = "uid://dqao67p2qiid5"

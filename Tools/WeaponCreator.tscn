@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://hw88fodt00g"]
+
+[node name="WeaponCreator" type="Control"]
+layout_mode = 3
+anchors_preset = 0

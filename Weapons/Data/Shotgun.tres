@@ -16,6 +16,7 @@ script = ExtResource("1_oo66c")
 weapon_name = "Shotgun"
 weapon_scene = ExtResource("4_d0y06")
 weapon_sprite = ExtResource("4_lnt5v")
+weapon_sprite_color = Color(1, 0.27450982, 0.21176471, 1)
 weapon_icon = ExtResource("3_d0y06")
 bullet = ExtResource("1_4cwln")
 mag_size = 6

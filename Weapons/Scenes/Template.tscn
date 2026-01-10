@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb2s3wwwqtv61"]
+
+[ext_resource type="Script" uid="uid://tvklnr6prc3y" path="res://Weapons/Data/Weapon_Smg.gd" id="1_686hf"]
+[ext_resource type="Texture2D" uid="uid://cguvxh4t4c1fi" path="res://Weapons/Sprites/smg.png" id="2_alcf2"]
+
+[node name="Smg" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_686hf")
+
+[node name="WeaponSprite" type="Sprite2D" parent="."]
+modulate = Color(0.0383972, 0.0383972, 0.0383972, 1)
+position = Vector2(-4, 0.857143)
+texture = ExtResource("2_alcf2")
+
+[node name="Barrel" type="Marker2D" parent="."]
+position = Vector2(12, -2)
