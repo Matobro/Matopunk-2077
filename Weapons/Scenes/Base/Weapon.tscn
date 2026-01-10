@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dea33q6ksobhr"]
+
+[ext_resource type="Texture2D" uid="uid://ek6f6ssm7rr" path="res://Weapons/Sprites/gun.png" id="1_etv3g"]
+[ext_resource type="Script" uid="uid://dihw6oy5k5lb1" path="res://Weapons/Scenes/Base/Weapon.gd" id="1_h7nlx"]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_h7nlx")
+
+[node name="WeaponSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_etv3g")
+
+[node name="Barrel" type="Marker2D" parent="."]
+position = Vector2(8, -4)

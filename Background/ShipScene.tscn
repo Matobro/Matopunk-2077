@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnyyafx1ubr0i"]
+
+[ext_resource type="Texture2D" uid="uid://jdnmi7rflvuf" path="res://Background/Cyberpunk/ship_01.png" id="1_5n1bc"]
+[ext_resource type="Script" uid="uid://bcu5r525dljvg" path="res://Background/ShipLoop.gd" id="2_ifil3"]
+[ext_resource type="Texture2D" uid="uid://bjw8b5uipr0kb" path="res://Background/Cyberpunk/ship_02.png" id="3_3ad5c"]
+[ext_resource type="Texture2D" uid="uid://c2xjdftqnls7u" path="res://Background/Cyberpunk/ship_03.png" id="4_q3o12"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("2_ifil3")
+ship_variances = Array[Texture2D]([ExtResource("1_5n1bc"), ExtResource("3_3ad5c"), ExtResource("4_q3o12")])
+speed = 200.0
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5n1bc")

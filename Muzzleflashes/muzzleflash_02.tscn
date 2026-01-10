@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=3 uid="uid://dnlbtdi1iwokr"]
+
+[ext_resource type="Texture2D" uid="uid://brbrmyqvllrsw" path="res://Muzzleflashes/Muzzle_02.png" id="1_oibb8"]
+[ext_resource type="Script" uid="uid://i03ydu2u1w5l" path="res://FX/FX.gd" id="2_ov3ts"]
+[ext_resource type="Texture2D" uid="uid://q3kp6jkd2dhl" path="res://Lights/circle light.png" id="3_ov3ts"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov3ts"]
+atlas = ExtResource("1_oibb8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clqm8"]
+atlas = ExtResource("1_oibb8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tex3f"]
+atlas = ExtResource("1_oibb8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3via5"]
+atlas = ExtResource("1_oibb8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlgjw"]
+atlas = ExtResource("1_oibb8")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dxv7u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov3ts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clqm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clqm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clqm8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tex3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tex3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tex3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3via5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3via5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3via5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlgjw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlgjw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlgjw")
+}],
+"loop": false,
+"name": &"fx",
+"speed": 50.0
+}]
+
+[node name="Muzzleflash" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.392157)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_dxv7u")
+animation = &"fx"
+offset = Vector2(16, 0)
+script = ExtResource("2_ov3ts")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 61
+energy = 3.5
+texture = ExtResource("3_ov3ts")
+offset = Vector2(16, 0)

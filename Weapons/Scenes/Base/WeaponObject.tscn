@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbxgwlisv386c"]
+
+[ext_resource type="Texture2D" uid="uid://ek6f6ssm7rr" path="res://Weapons/Sprites/gun.png" id="2_fefp6"]
+
+[sub_resource type="GDScript" id="GDScript_rrak0"]
+script/source = "extends Node
+
+class_name WeaponObject
+
+var weapon: WeaponData"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwuuq"]
+
+[node name="WeaponObject" type="Area2D" groups=["WeaponPickup"]]
+z_index = 60
+collision_layer = 64
+collision_mask = 8
+script = SubResource("GDScript_rrak0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fefp6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bwuuq")

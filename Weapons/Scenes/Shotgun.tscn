@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxn44gi2ykxp1"]
+
+[ext_resource type="Script" uid="uid://cl6cyw7r1o6nd" path="res://Weapons/Data/Weapon_Shotgun.gd" id="1_72753"]
+[ext_resource type="Texture2D" uid="uid://dwtmn5i0rijy5" path="res://Weapons/Sprites/shotgun.png" id="2_72753"]
+
+[node name="Shotgun" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_72753")
+
+[node name="WeaponSprite" type="Sprite2D" parent="."]
+modulate = Color(0.0383972, 0.0383972, 0.0383972, 1)
+position = Vector2(-1, 0.857143)
+texture = ExtResource("2_72753")
+
+[node name="Barrel" type="Marker2D" parent="."]
+position = Vector2(24, -2)
