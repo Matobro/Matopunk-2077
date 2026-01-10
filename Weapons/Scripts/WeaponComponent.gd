@@ -69,12 +69,18 @@ func on_magazine_changed(magazine: int):
 
 func reload():
 	if is_reloading or !current_weapon: return
+
 	var data: WeaponData = current_weapon.weapon_data
-	var temp_ammo: int = data.ammo_total
-	var temp_mag: int = data.mag_left
 	var ammo_missing: int = data.mag_size - data.mag_left
 
 	if ammo_missing <= 0 or !data.has_total_ammo(): return
+
+	is_reloading = true
+	emit_signal("reloading", data.reload_time)
+	await get_tree().create_timer(data.reload_time).timeout
+
+	var temp_ammo: int = data.ammo_total
+	var temp_mag: int = data.mag_left
 
 	if temp_ammo <= 0:
 		is_reloading = false
@@ -86,9 +92,6 @@ func reload():
 				temp_ammo -= 1
 				temp_mag += 1
 
-	is_reloading = true
-	emit_signal("reloading", data.reload_time)
-	await get_tree().create_timer(data.reload_time).timeout
 	data.mag_left = temp_mag
 	data.ammo_total = temp_ammo
 	emit_signal("magazine_changed", data.mag_left)

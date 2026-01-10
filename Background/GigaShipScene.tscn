@@ -212,7 +212,7 @@ script = ExtResource("2_6qtj4")
 end_angle = -45.0
 
 [node name="PointLight2D" type="PointLight2D" parent="LightAnchor2"]
-light_mask = 8
+light_mask = 512
 texture_filter = 2
 position = Vector2(-0.2000482, 122.59995)
 color = Color(1.8247963, 0, 0.694361, 1)
@@ -238,7 +238,7 @@ script = ExtResource("2_6qtj4")
 duration = 15.0
 
 [node name="PointLight2D" type="PointLight2D" parent="LightAnchor"]
-light_mask = 8
+light_mask = 512
 texture_filter = 2
 position = Vector2(-0.2000482, 122.59995)
 color = Color(1.8247963, 0, 0.694361, 1)

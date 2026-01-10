@@ -33,6 +33,9 @@ func _physics_process(delta: float) -> void:
 	var shoot = input_component.shoot_input()
 	var crouch_input = input_component.crouch_input()
 	var reload_input = input_component.reload_input()
+	var is_grounded = gravity_component.is_grounded(self)
+	var is_on_platform = gravity_component.is_on_one_way_platform(self)
+	var jump_input = input_component.jump_input()
 
 	animation_component.handle_orientation(self, aim)
 
@@ -51,6 +54,14 @@ func _physics_process(delta: float) -> void:
 
 	if reload_input:
 		weapon_component.reload()
+
+	if is_grounded and jump_input:
+		movement_component.jump(self)
+	
+	if is_on_platform and crouch_input:
+		print("dropping down")
+		movement_component.drop_down(self)
+
 
 	move_and_slide()
 

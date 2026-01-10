@@ -99,7 +99,7 @@ reload={
 2d_physics/layer_2="Wall"
 2d_physics/layer_3="Ceiling"
 2d_physics/layer_4="Player"
-2d_physics/layer_5="Blood"
+2d_physics/layer_5="OneWayPlatform"
 2d_physics/layer_6="Bullet"
 2d_physics/layer_7="Weapon"
 

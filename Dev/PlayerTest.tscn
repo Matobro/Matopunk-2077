@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://dqwf71esamcyw"]
+[gd_scene load_steps=43 format=4 uid="uid://dqwf71esamcyw"]
 
 [ext_resource type="PackedScene" uid="uid://do6p35xn2b4j" path="res://Player/Player.tscn" id="1_kyyvb"]
 [ext_resource type="Texture2D" uid="uid://jdnmi7rflvuf" path="res://Background/Cyberpunk/ship_01.png" id="7_gyvbi"]
@@ -192,6 +192,9 @@ terrain_set_0/terrain_2/name = "Terrain 2"
 terrain_set_0/terrain_2/color = Color(0.0854914, 0.323126, 1, 1)
 sources/1 = SubResource("TileSetAtlasSource_oscfj")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2622"]
+size = Vector2(315, 3.333435)
+
 [sub_resource type="Environment" id="Environment_qfy00"]
 background_mode = 3
 tonemap_exposure = 1.3
@@ -204,6 +207,12 @@ glow_blend_mode = 4
 fog_density = 0.8637
 volumetric_fog_density = 0.8242
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65tei"]
+size = Vector2(191, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsvho"]
+size = Vector2(48, 1)
+
 [node name="World" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [-205.0]
 
@@ -211,82 +220,82 @@ metadata/_edit_horizontal_guides_ = [-205.0]
 position = Vector2(280, -226)
 
 [node name="Background" type="Node2D" parent="."]
+light_mask = 512
 position = Vector2(536, 200)
 
-[node name="Sky" type="Parallax2D" parent="Background"]
+[node name="FarBackground" type="Node2D" parent="Background"]
+
+[node name="Sky" type="Parallax2D" parent="Background/FarBackground"]
 scroll_scale = Vector2(1, 0)
 scroll_offset = Vector2(0, 100)
 repeat_size = Vector2(1080, 400)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Sky"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/Sky"]
 modulate = Color(0.899258, 0.899258, 0.899258, 1)
 texture_repeat = 2
 position = Vector2(-116.25, -21.25)
 texture = ExtResource("10_go4x2")
 
-[node name="Glow" type="Parallax2D" parent="Background"]
+[node name="Glow" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 1
 scroll_scale = Vector2(1, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Glow"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/Glow"]
 modulate = Color(1.09317, 0.914697, 0.914697, 1)
 texture = ExtResource("11_4t6a4")
 
-[node name="Distancebuildings" type="Parallax2D" parent="Background"]
-light_mask = 2
+[node name="Distancebuildings" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 2
 scroll_scale = Vector2(0.05, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Distancebuildings"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/Distancebuildings"]
 modulate = Color(0.678944, 0.678944, 0.678944, 1)
 texture_repeat = 2
 texture = ExtResource("12_s7f8t")
 
-[node name="FarShips" type="Parallax2D" parent="Background"]
-light_mask = 2
+[node name="FarShips" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 3
 scroll_scale = Vector2(0.05, 0)
 
-[node name="Node2D" type="Node2D" parent="Background/FarShips"]
+[node name="Node2D" type="Node2D" parent="Background/FarBackground/FarShips"]
 script = ExtResource("13_d7sqy")
 ship_scene = ExtResource("14_llbwy")
-ship_count = 100
+ship_count = 50
 horizontal_range = 400.0
 loop_margin = 200.0
 vertical_offset = -100.0
 ship_variances = Array[Texture2D]([ExtResource("7_gyvbi"), ExtResource("8_ta6c2"), ExtResource("9_57lw0")])
 ship_color = Color(0.026207, 0.0261967, 0.0586703, 1)
-ship_max_speed = 6.0
+ship_min_speed = 4.0
+ship_max_speed = 12.0
 ship_min_size = 0.3
 ship_max_size = 0.7
 
-[node name="Megabuildings" type="Parallax2D" parent="Background"]
-light_mask = 4
+[node name="Megabuildings" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 4
 scroll_scale = Vector2(0.15, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Megabuildings"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/Megabuildings"]
 texture_repeat = 2
 texture = ExtResource("13_pvuc5")
 
-[node name="MediumShips" type="Parallax2D" parent="Background"]
-light_mask = 4
+[node name="MediumShips" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 5
 scale = Vector2(0.999999, 0.999999)
 scroll_scale = Vector2(0.15, 0)
 scroll_offset = Vector2(0, -91.25)
 
-[node name="Node2D" type="Node2D" parent="Background/MediumShips"]
+[node name="Node2D" type="Node2D" parent="Background/FarBackground/MediumShips"]
 position = Vector2(0, -81.25)
 script = ExtResource("13_d7sqy")
 ship_scene = ExtResource("14_llbwy")
@@ -296,18 +305,17 @@ vertical_range = 200.0
 loop_margin = 200.0
 ship_variances = Array[Texture2D]([ExtResource("7_gyvbi"), ExtResource("8_ta6c2"), ExtResource("9_57lw0")])
 ship_color = Color(0.0588235, 0.027451, 0.0823529, 1)
-ship_min_speed = 3.0
+ship_min_speed = 6.0
 ship_max_speed = 20.0
 ship_min_size = 0.5
 ship_max_size = 1.0
 
-[node name="GigaShip" type="Parallax2D" parent="Background"]
-light_mask = 2
+[node name="GigaShip" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 5
 scroll_scale = Vector2(0.15, -0.9)
-scroll_offset = Vector2(0, 300)
+scroll_offset = Vector2(0, 700)
 
-[node name="Node2D" type="Node2D" parent="Background/GigaShip"]
+[node name="Node2D" type="Node2D" parent="Background/FarBackground/GigaShip"]
 position = Vector2(-2.5, -31.25)
 script = ExtResource("13_d7sqy")
 ship_scene = ExtResource("13_7ory8")
@@ -323,63 +331,58 @@ ship_max_speed = 6.0
 ship_min_size = 1.0
 ship_max_size = 1.0
 
-[node name="CityHorizon" type="Parallax2D" parent="Background"]
-light_mask = 8
+[node name="CityHorizon" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 6
 scroll_scale = Vector2(0.2, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/CityHorizon"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/CityHorizon"]
 texture_repeat = 2
 texture = ExtResource("14_oscfj")
 
-[node name="Water" type="Parallax2D" parent="Background"]
-light_mask = 8
+[node name="Water" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 7
 scroll_scale = Vector2(0.4, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Water"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/Water"]
 texture_repeat = 2
 texture = ExtResource("10_fkk6c")
 
-[node name="WaterReflectionsSecond" type="Parallax2D" parent="Background"]
+[node name="WaterReflectionsSecond" type="Parallax2D" parent="Background/FarBackground"]
 modulate = Color(2.61266, 1.30925, 1.38052, 1)
-light_mask = 16
 z_index = 8
 scroll_scale = Vector2(0.15, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/WaterReflectionsSecond"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/WaterReflectionsSecond"]
 texture_repeat = 2
 texture = ExtResource("11_tvla8")
 
-[node name="WaterReflectionsFirst" type="Parallax2D" parent="Background"]
+[node name="WaterReflectionsFirst" type="Parallax2D" parent="Background/FarBackground"]
 modulate = Color(2.61266, 1.30925, 1.38052, 1)
-light_mask = 16
 z_index = 8
 scroll_scale = Vector2(0.2, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/WaterReflectionsFirst"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/WaterReflectionsFirst"]
 texture_repeat = 2
 texture = ExtResource("12_go4x2")
 
-[node name="NearShips" type="Parallax2D" parent="Background"]
-light_mask = 8
+[node name="NearShips" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 9
 scale = Vector2(0.999999, 0.999999)
 scroll_scale = Vector2(0.2, 0)
 
-[node name="Node2D" type="Node2D" parent="Background/NearShips"]
+[node name="Node2D" type="Node2D" parent="Background/FarBackground/NearShips"]
 position = Vector2(0, -135)
 script = ExtResource("13_d7sqy")
 ship_scene = ExtResource("14_llbwy")
@@ -388,48 +391,50 @@ horizontal_range = 200.0
 loop_margin = 200.0
 ship_variances = Array[Texture2D]([ExtResource("7_gyvbi"), ExtResource("8_ta6c2"), ExtResource("9_57lw0")])
 ship_color = Color(0.152941, 0, 0.0901961, 1)
-ship_min_speed = 100.0
-ship_max_speed = 300.0
+ship_min_speed = 40.0
+ship_max_speed = 100.0
 ship_min_size = 1.0
 ship_max_size = 3.0
 
-[node name="Void" type="Parallax2D" parent="Background"]
+[node name="Void" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 9
 scroll_scale = Vector2(0.2, 0)
 scroll_offset = Vector2(0, 50)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Void"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/FarBackground/Void"]
 texture_repeat = 2
 position = Vector2(0, 402.5)
 texture = ExtResource("15_4t6a4")
 
-[node name="Buildings_4" type="Parallax2D" parent="Background"]
-light_mask = 32
+[node name="CloseBackground" type="Node2D" parent="Background"]
+visible = false
+light_mask = 512
+
+[node name="Buildings_4" type="Parallax2D" parent="Background/CloseBackground"]
 z_index = 10
 scroll_scale = Vector2(0.7, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Buildings_4"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/CloseBackground/Buildings_4"]
 modulate = Color(1.11232, 1.11232, 1.43407, 1)
 texture_repeat = 2
 texture = ExtResource("19_ta6c2")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Background/Buildings_4"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/CloseBackground/Buildings_4"]
 modulate = Color(4.626324, 4.626324, 5.912981, 1)
 texture_repeat = 2
 texture = ExtResource("20_65tei")
 
-[node name="NearShips2" type="Parallax2D" parent="Background"]
-light_mask = 32
+[node name="NearShips2" type="Parallax2D" parent="Background/CloseBackground"]
 z_index = 11
 scale = Vector2(0.999999, 0.999999)
 scroll_scale = Vector2(0.7, 0)
 
-[node name="Node2D" type="Node2D" parent="Background/NearShips2"]
+[node name="Node2D" type="Node2D" parent="Background/CloseBackground/NearShips2"]
 position = Vector2(0, -135)
 script = ExtResource("13_d7sqy")
 ship_scene = ExtResource("14_llbwy")
@@ -438,36 +443,34 @@ horizontal_range = 200.0
 loop_margin = 200.0
 ship_variances = Array[Texture2D]([ExtResource("7_gyvbi"), ExtResource("8_ta6c2"), ExtResource("9_57lw0")])
 ship_color = Color(0.152882, 3.88054e-07, 0.0889591, 1)
-ship_min_speed = 100.0
-ship_max_speed = 300.0
+ship_min_speed = 60.0
+ship_max_speed = 200.0
 ship_min_size = 2.5
 ship_max_size = 4.0
 
-[node name="Buildings_3" type="Parallax2D" parent="Background"]
-light_mask = 64
+[node name="Buildings_3" type="Parallax2D" parent="Background/CloseBackground"]
 z_index = 12
 scroll_scale = Vector2(0.75, 0)
 scroll_offset = Vector2(0, 200)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Buildings_3"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/CloseBackground/Buildings_3"]
 modulate = Color(1.11232, 1.11232, 1.43407, 1)
 texture_repeat = 2
 texture = ExtResource("20_57lw0")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Background/Buildings_3"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/CloseBackground/Buildings_3"]
 modulate = Color(2.5723042, 2.5723042, 3.2944162, 1)
 texture_repeat = 2
 texture = ExtResource("21_q2622")
 
-[node name="NearShips3" type="Parallax2D" parent="Background"]
-light_mask = 64
+[node name="NearShips3" type="Parallax2D" parent="Background/CloseBackground"]
 z_index = 13
 scale = Vector2(0.999999, 0.999999)
 scroll_scale = Vector2(0.75, 0)
 
-[node name="Node2D" type="Node2D" parent="Background/NearShips3"]
+[node name="Node2D" type="Node2D" parent="Background/CloseBackground/NearShips3"]
 position = Vector2(0, -135)
 script = ExtResource("13_d7sqy")
 ship_scene = ExtResource("14_llbwy")
@@ -476,36 +479,34 @@ horizontal_range = 200.0
 loop_margin = 200.0
 ship_variances = Array[Texture2D]([ExtResource("7_gyvbi"), ExtResource("8_ta6c2"), ExtResource("9_57lw0")])
 ship_color = Color(0.152882, 3.88054e-07, 0.0889591, 1)
-ship_min_speed = 100.0
-ship_max_speed = 300.0
+ship_min_speed = 60.0
+ship_max_speed = 200.0
 ship_min_size = 3.0
 ship_max_size = 5.0
 
-[node name="Buildings_2" type="Parallax2D" parent="Background"]
-light_mask = 128
+[node name="Buildings_2" type="Parallax2D" parent="Background/CloseBackground"]
 z_index = 14
 scroll_scale = Vector2(0.8, 0)
 scroll_offset = Vector2(0, 200)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Buildings_2"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/CloseBackground/Buildings_2"]
 modulate = Color(1.11232, 1.11232, 1.43407, 1)
 texture_repeat = 2
 texture = ExtResource("21_7ory8")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Background/Buildings_2"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/CloseBackground/Buildings_2"]
 modulate = Color(3.4520304, 3.4520304, 4.415934, 1)
 texture_repeat = 2
 texture = ExtResource("22_enu5r")
 
-[node name="NearShips4" type="Parallax2D" parent="Background"]
-light_mask = 128
+[node name="NearShips4" type="Parallax2D" parent="Background/CloseBackground"]
 z_index = 15
 scale = Vector2(0.999999, 0.999999)
 scroll_scale = Vector2(0.8, 0)
 
-[node name="Node2D" type="Node2D" parent="Background/NearShips4"]
+[node name="Node2D" type="Node2D" parent="Background/CloseBackground/NearShips4"]
 position = Vector2(0, -135)
 script = ExtResource("13_d7sqy")
 ship_scene = ExtResource("14_llbwy")
@@ -515,32 +516,30 @@ vertical_range = 400.0
 loop_margin = 200.0
 ship_variances = Array[Texture2D]([ExtResource("7_gyvbi"), ExtResource("8_ta6c2"), ExtResource("9_57lw0")])
 ship_color = Color(0.152882, 3.88054e-07, 0.0889591, 1)
-ship_min_speed = 100.0
-ship_max_speed = 300.0
+ship_min_speed = 60.0
+ship_max_speed = 200.0
 ship_min_size = 3.5
 ship_max_size = 4.0
 
-[node name="Buildings_1" type="Parallax2D" parent="Background"]
-light_mask = 256
+[node name="Buildings_1" type="Parallax2D" parent="Background/CloseBackground"]
 z_index = 16
 scroll_scale = Vector2(0.9, 0)
 scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Buildings_1"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/CloseBackground/Buildings_1"]
 modulate = Color(1.11232, 1.11232, 1.43407, 1)
 texture_repeat = 2
 texture = ExtResource("22_8m3fe")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Background/Buildings_1"]
+[node name="Sprite2D2" type="Sprite2D" parent="Background/CloseBackground/Buildings_1"]
 modulate = Color(2.5723042, 2.5723042, 3.2944162, 1)
 texture_repeat = 2
 texture = ExtResource("23_bf2c1")
 
-[node name="Glow2" type="Parallax2D" parent="Background"]
+[node name="Glow2" type="Parallax2D" parent="Background/CloseBackground"]
 modulate = Color(1.49583, 2.70754, 2.70754, 0.00784314)
-light_mask = 256
 z_index = 16
 scale = Vector2(0.999999, 0.999999)
 scroll_scale = Vector2(1, 0)
@@ -548,7 +547,7 @@ scroll_offset = Vector2(0, 150)
 repeat_size = Vector2(1080, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/Glow2"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/CloseBackground/Glow2"]
 modulate = Color(1.6579, 1.35326, 1.35326, 1)
 texture_repeat = 2
 texture = ExtResource("11_4t6a4")
@@ -595,19 +594,39 @@ duration = 3.0
 type = 1
 ease = 2
 
+[node name="LowerPartCollision" type="StaticBody2D" parent="Gigaburg"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gigaburg/LowerPartCollision"]
+position = Vector2(4.0709972e-05, 113.33334)
+shape = SubResource("RectangleShape2D_q2622")
+one_way_collision = true
+
+[node name="RoofCollision" type="StaticBody2D" parent="Gigaburg"]
+position = Vector2(-3.3333333, -96.666664)
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gigaburg/RoofCollision"]
+position = Vector2(4.0709972e-05, 113.33334)
+shape = SubResource("RectangleShape2D_q2622")
+one_way_collision = true
+
 [node name="PostProsessing" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qfy00")
 
-[node name="Buollding" type="Sprite2D" parent="."]
+[node name="Lox Otel" type="Sprite2D" parent="."]
 z_index = 40
 position = Vector2(504, -374)
 texture = ExtResource("26_qfy00")
 
-[node name="PointLight2D" type="PointLight2D" parent="Buollding"]
+[node name="GlowEffects" type="Node2D" parent="Lox Otel"]
+
+[node name="SignGlow" type="PointLight2D" parent="Lox Otel/GlowEffects"]
 self_modulate = Color(1.57203, 1.57203, 1.57203, 1)
-position = Vector2(51.3333, 10.3333)
+position = Vector2(51.333313, 10.333313)
 color = Color(4.95476, 2.77529, 3.4351, 1)
-energy = 1.5
 range_z_min = 40
 range_z_max = 100
 shadow_enabled = true
@@ -619,7 +638,7 @@ duration = 0.5
 type = 7
 ease = 3
 
-[node name="PointLight2D2" type="PointLight2D" parent="Buollding"]
+[node name="AdGlow" type="PointLight2D" parent="Lox Otel/GlowEffects"]
 self_modulate = Color(1.57203, 1.57203, 1.57203, 1)
 position = Vector2(-100, 7)
 color = Color(4.95476, 2.77529, 3.4351, 1)
@@ -635,7 +654,7 @@ duration = 0.5
 type = 7
 ease = 3
 
-[node name="PointLight2D3" type="PointLight2D" parent="Buollding"]
+[node name="DoorGlow" type="PointLight2D" parent="Lox Otel/GlowEffects"]
 self_modulate = Color(1.57203, 1.57203, 1.57203, 1)
 position = Vector2(-101, 130)
 color = Color(3.8698, 0.000870354, 2.04941, 1)
@@ -652,7 +671,7 @@ duration = 0.5
 type = 7
 ease = 3
 
-[node name="PointLight2D4" type="PointLight2D" parent="Buollding"]
+[node name="Window1Glow" type="PointLight2D" parent="Lox Otel/GlowEffects"]
 self_modulate = Color(1.57203, 1.57203, 1.57203, 1)
 position = Vector2(-32, 126)
 color = Color(4.79931, 0.0033964, 2.54781, 1)
@@ -670,7 +689,7 @@ duration = 0.5
 type = 7
 ease = 3
 
-[node name="PointLight2D5" type="PointLight2D" parent="Buollding"]
+[node name="Window2Glow" type="PointLight2D" parent="Lox Otel/GlowEffects"]
 self_modulate = Color(1.57203, 1.57203, 1.57203, 1)
 position = Vector2(12, 126)
 color = Color(4.79931, 0.0033964, 2.54781, 1)
@@ -688,7 +707,7 @@ duration = 0.5
 type = 7
 ease = 3
 
-[node name="PointLight2D6" type="PointLight2D" parent="Buollding"]
+[node name="Doodad1Glow" type="PointLight2D" parent="Lox Otel/GlowEffects"]
 self_modulate = Color(1.57203, 1.57203, 1.57203, 1)
 position = Vector2(98, 128)
 scale = Vector2(1.6, 1)
@@ -707,7 +726,7 @@ duration = 0.5
 type = 7
 ease = 3
 
-[node name="PointLight2D7" type="PointLight2D" parent="Buollding"]
+[node name="Doodad2Glow" type="PointLight2D" parent="Lox Otel/GlowEffects"]
 self_modulate = Color(1.57203, 1.57203, 1.57203, 1)
 position = Vector2(118, 128)
 scale = Vector2(1.6, 1)
@@ -725,6 +744,26 @@ end_intensity = 2.0
 duration = 0.5
 type = 7
 ease = 3
+
+[node name="Collisions" type="Node2D" parent="Lox Otel"]
+
+[node name="FirstFloorRoof" type="StaticBody2D" parent="Lox Otel/Collisions"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lox Otel/Collisions/FirstFloorRoof"]
+position = Vector2(39, 95)
+shape = SubResource("RectangleShape2D_65tei")
+one_way_collision = true
+
+[node name="DoorRoof" type="StaticBody2D" parent="Lox Otel/Collisions"]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lox Otel/Collisions/DoorRoof"]
+position = Vector2(-99, 102.5)
+shape = SubResource("RectangleShape2D_gsvho")
+one_way_collision = true
 
 [node name="DevSpawnWeapon" type="Node2D" parent="."]
 script = ExtResource("33_s80li")
