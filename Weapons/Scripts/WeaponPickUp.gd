@@ -3,7 +3,13 @@ extends Area2D
 class_name WeaponPickUp
 
 @onready var sprite = $Sprite2D
-var weapon: WeaponData
+@export var weapon: WeaponData
+
+@export var is_debug: bool = false
+
+func _ready():
+	if is_debug:
+		assign_weapon(weapon)
 
 func assign_weapon(weapon_ref: WeaponData):
 	weapon = weapon_ref
