@@ -1,5 +1,6 @@
 extends Weapon
 
+class_name WEAPONNAME
 func shoot():
 	for i in weapon_data.bullets:
 		if weapon_data.has_ammo():

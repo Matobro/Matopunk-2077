@@ -138,6 +138,7 @@ func create_weapon_scene(name) -> bool:
 
 
 func create_weapon_script(name) -> bool:
+    var plain_name = name
     name = "Weapon_" + name.capitalize()
     var path = weapons_folder + name + ".gd"
 
@@ -156,6 +157,9 @@ func create_weapon_script(name) -> bool:
     ## Copy template content
     var content = template.get_as_text()
     template.close()
+
+    ## Add class_name
+    content = content.replace("class_name WEAPONNAME", str("class_name ", plain_name.capitalize()))
 
     ## Create new script file
     var file = FileAccess.open(path, FileAccess.WRITE)
