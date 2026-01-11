@@ -14,6 +14,8 @@ class_name AnimationComponent
 @export var crouch_forward: String = "crouch_walk_forward"
 @export var crouch_backward: String = "crouch_walk_backward"
 @export var crouch_idle: String = "crouch_idle"
+@export var slide_forward: String = "slide_forward"
+@export var slide_backward: String = "slide_backward"
 
 @export_category("Animation speeds")
 @export var walk_forward_speed: float = 0.8
@@ -23,6 +25,7 @@ class_name AnimationComponent
 @export var crouch_forward_speed: float = 0.8
 @export var crouch_backward_speed: float = 0.5
 @export var crouch_idle_speed: float = 0.8
+@export var slide_speed: float = 1.5
 
 
 var is_facing_right: bool = true
@@ -39,10 +42,21 @@ func handle_orientation(body: CharacterBody2D, look_target: Vector2):
         body.scale.x *= -1
         is_facing_right = false
 
-func handle_movement_animation(body: CharacterBody2D, move_direction: float, look_target: Vector2, is_run: bool, is_crouch: bool, is_grounded: bool):
+func handle_movement_animation(body: CharacterBody2D, move_direction: float, look_target: Vector2, is_run: bool, is_crouch: bool, is_grounded: bool, is_slide: bool):
     handle_orientation(body, look_target)
+    var moving_forward = is_moving_forward(move_direction)
 
-    ## Insert jump animation here
+    if is_slide and moving_forward:
+        animation_player.play(slide_forward)
+        animation_player.speed_scale = slide_speed
+        return
+
+    if is_slide and !moving_forward:
+        animation_player.play(slide_backward)
+        animation_player.speed_scale = slide_speed
+        return
+
+    ## Insert falling animation here
     if !is_grounded:
         animation_player.play(idle)
         animation_player.speed_scale = idle_speed
@@ -58,8 +72,6 @@ func handle_movement_animation(body: CharacterBody2D, move_direction: float, loo
             animation_player.play(idle)
             animation_player.speed_scale = idle_speed
         return
-
-    var moving_forward = is_moving_forward(move_direction)
 
     if moving_forward:
         if is_crouch:

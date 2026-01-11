@@ -23,7 +23,7 @@ func is_grounded(body) -> bool:
 	return body.is_on_floor()
 
 
-func is_on_one_way_platform(body: CharacterBody2D) -> bool:
+func is_on_one_way_platform() -> bool:
 	if floor_ray.is_colliding():
 		var collider = floor_ray.get_collider()
 		if collider.collision_layer & (1 << 4):

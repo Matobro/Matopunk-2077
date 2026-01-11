@@ -314,8 +314,8 @@ ship_max_size = 1.0
 
 [node name="GigaShip" type="Parallax2D" parent="Background/FarBackground"]
 z_index = 5
-scroll_scale = Vector2(0.15, -0.9)
-scroll_offset = Vector2(0, 700)
+scroll_scale = Vector2(0.15, 0)
+scroll_offset = Vector2(0, 50)
 
 [node name="Node2D" type="Node2D" parent="Background/FarBackground/GigaShip"]
 position = Vector2(-2.5, -31.25)

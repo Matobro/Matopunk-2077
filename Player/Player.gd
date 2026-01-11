@@ -29,24 +29,29 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var input_x = input_component.input_horizontal
 	var aim = input_component.get_aim_position()
-	var run_input = input_component.run_input()
+	var run_input = true ##input_component.run_input()
 	var shoot = input_component.shoot_input()
 	var crouch_input = input_component.crouch_input()
 	var reload_input = input_component.reload_input()
 	var is_grounded = gravity_component.is_grounded(self)
-	var is_on_platform = gravity_component.is_on_one_way_platform(self)
+	var is_on_platform = gravity_component.is_on_one_way_platform()
 	var jump_input = input_component.jump_input()
+	var slide_input = input_component.slide_input()
+	var slide_state = movement_component.get_slide_state()
 
 	animation_component.handle_orientation(self, aim)
 
 	var moving_forward = animation_component.is_moving_forward(input_x)
 	var crouch = crouch_input
-	var run = run_input and moving_forward and !crouch
+	var run = run_input and !crouch
 
 	gravity_component.apply_gravity(self, delta)
-	movement_component.handle_horizontal_movement(self, input_x, run, moving_forward, crouch)
 
-	animation_component.handle_movement_animation(self, input_x, aim, run, crouch, is_grounded)
+	if !slide_state:
+		movement_component.handle_horizontal_movement(self, input_x, run, moving_forward, crouch)
+
+
+	animation_component.handle_movement_animation(self, input_x, aim, run, crouch, is_grounded, slide_state)
 	animation_component.handle_arms(aim)
 
 	if shoot:
@@ -55,11 +60,15 @@ func _physics_process(delta: float) -> void:
 	if reload_input:
 		weapon_component.reload()
 
+
+	if !movement_component.get_slide_state():
+		if is_grounded and slide_input and run:
+			movement_component.start_slide(self, input_x)
+
 	if is_grounded and jump_input:
 		movement_component.jump(self)
 	
 	if is_on_platform and crouch_input:
-		print("dropping down")
 		movement_component.drop_down(self)
 
 
@@ -100,3 +109,7 @@ func shot_fired(data: WeaponData):
 
 func reload_done(data: WeaponData):
 	sound_player.play_audio(data.reload)
+
+
+func slide_performed():
+	pass

@@ -17,6 +17,8 @@ var input_horizontal: float = 0.0
 var cursor_position: Vector2
 var cursor_speed: float = 800.0
 
+var last_slide_press_time: float = 0.0
+const DOUBLE_PRESS_TIME: float = 0.25
 
 func _ready() -> void:
 	cursor_position = get_viewport().get_visible_rect().size / 2
@@ -79,3 +81,18 @@ func jump_input() -> bool:
 
 func reload_input() -> bool:
 	return Input.is_action_pressed("reload")
+
+
+func slide_input() -> bool:
+	if !Input.is_action_just_pressed("slide"):
+		return false
+	
+	var time_stamp = Time.get_ticks_msec() / 1000.0
+
+	if time_stamp - last_slide_press_time <= DOUBLE_PRESS_TIME:
+		last_slide_press_time = 0.0
+		print("sliding")
+		return true
+
+	last_slide_press_time = time_stamp
+	return false
