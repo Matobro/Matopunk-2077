@@ -5,7 +5,7 @@ extends Resource
 class_name WeaponData
 
 @export_category("Weapon Data")
-@export var weapon_name = "Weapon"
+@export var weapon_name: String = "Weapon"
 @export var weapon_scene = PackedScene
 @export var weapon_sprite: Texture2D
 @export var weapon_sprite_color: Color
@@ -37,8 +37,11 @@ var mag_left: int = 1
 var reloading: bool = false
 var weapon_user: Node
 
+var initialized: bool = false
 
 func initialize_weapon() -> void:
+    if initialized: return
+    initialized = true
     mag_left = mag_size
 
 

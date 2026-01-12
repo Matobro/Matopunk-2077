@@ -8,20 +8,10 @@ class_name GunDataUI
 @onready var reload_bar = $ReloadBar
 
 
-var is_reloading: bool = false
-
 func _ready() -> void:
     show_gun_data(false)
     show_reload_bar(false)
 
-
-func _process(delta: float) -> void:
-    if is_reloading:
-        reload_bar.value -= delta
-
-    if reload_bar.value <= 0:
-        is_reloading = false
-        show_reload_bar(false)
 
 func show_gun_data(value: bool = false):
     visible = value
@@ -40,13 +30,15 @@ func update_ammo_data(ammo_value: int = 0):
 
 
 func update_reload_bar(total_duration):
-    is_reloading = true
     show_reload_bar(true)
 
-    ## +0.2 is buffer, for some reason reload bar disappears slightly before reload is done
-    reload_bar.max_value = total_duration + 0.2
-    reload_bar.value = total_duration + 0.2
+    reload_bar.max_value = total_duration
+    reload_bar.value = total_duration
 
 
+func update_reload_progress(remaining: float):
+    reload_bar.value = max(remaining, 0)
+
+    
 func show_reload_bar(value: bool = false):
     reload_bar.visible = value

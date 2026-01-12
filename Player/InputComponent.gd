@@ -10,6 +10,7 @@ class_name InputComponent
 @export var crosshair: Node2D
 
 enum InputType { MOUSE, CONTROLLER }
+enum WeaponScroll { NONE, NEXT, PREV }
 
 var input_type = InputType.MOUSE
 var input_horizontal: float = 0.0
@@ -96,3 +97,14 @@ func slide_input() -> bool:
 
 	last_slide_press_time = time_stamp
 	return false
+
+
+## 1 for scroll up, 2 for scroll down, 0 for no input
+func weapon_scroll_input() -> int:
+	if Input.is_action_just_pressed("weapon_up"):
+		return WeaponScroll.NEXT
+	
+	if Input.is_action_just_pressed("weapon_down"):
+		return WeaponScroll.PREV
+
+	return 0

@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://c71hacecyk0co" path="res://Player/Art/Body_Walk.png" id="2_jio8c"]
 [ext_resource type="Texture2D" uid="uid://dg38ngr1c3psa" path="res://Player/Art/arms.png" id="3_un6pf"]
 [ext_resource type="Texture2D" uid="uid://cguvxh4t4c1fi" path="res://Weapons/Sprites/smg.png" id="4_0hlsd"]
-[ext_resource type="Script" uid="uid://cugqlecc825gr" path="res://Entity/GravityComponent.gd" id="5_fn17s"]
-[ext_resource type="Script" uid="uid://dckltesxep0yg" path="res://Entity/MovementComponent.gd" id="6_n2n7y"]
-[ext_resource type="Script" uid="uid://ce7uhypxojt87" path="res://Entity/AnimationComponent.gd" id="8_de0ly"]
+[ext_resource type="Script" uid="uid://cugqlecc825gr" path="res://Entity/Scripts/GravityComponent.gd" id="5_fn17s"]
+[ext_resource type="Script" uid="uid://dckltesxep0yg" path="res://Entity/Scripts/MovementComponent.gd" id="6_n2n7y"]
+[ext_resource type="Script" uid="uid://ce7uhypxojt87" path="res://Entity/Scripts/AnimationComponent.gd" id="8_de0ly"]
 [ext_resource type="Texture2D" uid="uid://cvewqb0indy70" path="res://Crosshairs/Crosshair_01.png" id="9_lplnl"]
 
 [sub_resource type="Animation" id="Animation_0j2ni"]

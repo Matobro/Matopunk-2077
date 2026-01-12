@@ -1,14 +1,14 @@
-[gd_scene load_steps=37 format=3 uid="uid://do6p35xn2b4j"]
+[gd_scene load_steps=40 format=3 uid="uid://do6p35xn2b4j"]
 
 [ext_resource type="Texture2D" uid="uid://bdn3hlr1yf6wm" path="res://Player/Art/head.png" id="1_ddoul"]
 [ext_resource type="Script" uid="uid://cyoosh2y06xs" path="res://Player/Player.gd" id="1_vlldt"]
 [ext_resource type="Texture2D" uid="uid://c71hacecyk0co" path="res://Player/Art/Body_Walk.png" id="2_8g4oa"]
 [ext_resource type="Texture2D" uid="uid://dg38ngr1c3psa" path="res://Player/Art/arms.png" id="3_6ysni"]
-[ext_resource type="Script" uid="uid://cugqlecc825gr" path="res://Entity/GravityComponent.gd" id="5_6ysni"]
+[ext_resource type="Script" uid="uid://cugqlecc825gr" path="res://Entity/Scripts/GravityComponent.gd" id="5_6ysni"]
 [ext_resource type="Script" uid="uid://dpujavkypckvl" path="res://Weapons/Scripts/WeaponComponent.gd" id="5_v0k0e"]
-[ext_resource type="Script" uid="uid://dckltesxep0yg" path="res://Entity/MovementComponent.gd" id="6_vlldt"]
+[ext_resource type="Script" uid="uid://dckltesxep0yg" path="res://Entity/Scripts/MovementComponent.gd" id="6_vlldt"]
 [ext_resource type="Script" uid="uid://cg3epu3jm45a2" path="res://Player/InputComponent.gd" id="8_s1rgi"]
-[ext_resource type="Script" uid="uid://ce7uhypxojt87" path="res://Entity/AnimationComponent.gd" id="9_j23h2"]
+[ext_resource type="Script" uid="uid://ce7uhypxojt87" path="res://Entity/Scripts/AnimationComponent.gd" id="9_j23h2"]
 [ext_resource type="Texture2D" uid="uid://cvewqb0indy70" path="res://Crosshairs/Crosshair_01.png" id="10_0j2ni"]
 [ext_resource type="Script" uid="uid://ca2o01os10jo4" path="res://Player/InventoryComponent.gd" id="11_5wa8t"]
 [ext_resource type="Script" uid="uid://uwsnno8x6ah5" path="res://UI/GunDataUI.gd" id="12_dm7nj"]
@@ -16,6 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://b1kyq788qbm0i" path="res://UI/wsquare.png" id="14_dm7nj"]
 [ext_resource type="Script" uid="uid://dcqocfbeg0rha" path="res://Dev/Camera.gd" id="15_3mea3"]
 [ext_resource type="Script" uid="uid://kphv2qqri162" path="res://Audio/SoundPlayer.gd" id="16_7v5gs"]
+[ext_resource type="Script" uid="uid://26pohks38t58" path="res://Entity/Scripts/StatComponent.gd" id="17_8sa4y"]
+[ext_resource type="Resource" uid="uid://dq3bjdxwb1x7s" path="res://Entity/Data/PlayerStats.tres" id="18_3nb2p"]
+[ext_resource type="Script" uid="uid://bshx6hiwe21cd" path="res://Player/PlayerActions.gd" id="19_d7xyo"]
 
 [sub_resource type="Animation" id="Animation_0j2ni"]
 length = 0.001
@@ -264,6 +267,40 @@ tracks/2/keys = {
 "values": [Vector2(1, -24), Vector2(2, -23), Vector2(1, -24), Vector2(0, -23), Vector2(1, -23)]
 }
 
+[sub_resource type="Animation" id="Animation_8sa4y"]
+resource_name = "slide"
+length = 0.40001002
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TorsoLegs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35]
+}
+
+[sub_resource type="Animation" id="Animation_3nb2p"]
+resource_name = "slide_forward"
+length = 0.40001002
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TorsoLegs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [36, 37, 38, 39]
+}
+
 [sub_resource type="Animation" id="Animation_5wa8t"]
 resource_name = "walk_backward"
 length = 1.10001
@@ -348,40 +385,6 @@ tracks/2/keys = {
 "values": [Vector2(0, -30), Vector2(1, -30), Vector2(0, -30), Vector2(1, -30)]
 }
 
-[sub_resource type="Animation" id="Animation_8sa4y"]
-resource_name = "slide"
-length = 0.40001002
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TorsoLegs:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [32, 33, 34, 35]
-}
-
-[sub_resource type="Animation" id="Animation_3nb2p"]
-resource_name = "slide_forward"
-length = 0.40001002
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TorsoLegs:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [36, 37, 38, 39]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v0k0e"]
 _data = {
 &"RESET": SubResource("Animation_0j2ni"),
@@ -445,19 +448,18 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 6
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "camera", "sound_player", "gun_data_ui")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_actions", "gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "gun_data_ui")]
 z_index = 50
 collision_layer = 8
 collision_mask = 31
 script = ExtResource("1_vlldt")
+player_actions = NodePath("PlayerActions")
 gravity_component = NodePath("GravityComponent")
 movement_component = NodePath("MovementComponent")
 input_component = NodePath("InputComponent")
 animation_component = NodePath("AnimationComponent")
 inventory_component = NodePath("InventoryComponent")
 weapon_component = NodePath("Arms/ArmLeft/Hand/WeaponComponent")
-camera = NodePath("Camera2D")
-sound_player = NodePath("AudioStreamPlayer2D")
 gun_data_ui = NodePath("CanvasLayer/GunData")
 
 [node name="Head" type="Sprite2D" parent="."]
@@ -528,6 +530,7 @@ script = ExtResource("9_j23h2")
 animation_player = NodePath("../BodyAnimation")
 arm_left = NodePath("../Arms/ArmLeft")
 arm_right = NodePath("../Arms/ArmRight")
+slide_speed = 3.0
 
 [node name="Crosshair" type="Sprite2D" parent="."]
 modulate = Color(0.835875, 0, 0.00267617, 1)
@@ -618,3 +621,13 @@ script = ExtResource("16_7v5gs")
 target_position = Vector2(0, 4)
 collision_mask = 16
 hit_from_inside = true
+
+[node name="StatComponent" type="Node" parent="."]
+script = ExtResource("17_8sa4y")
+debug_stats = ExtResource("18_3nb2p")
+
+[node name="PlayerActions" type="Node" parent="." node_paths=PackedStringArray("gun_data_ui", "sound_player", "camera")]
+script = ExtResource("19_d7xyo")
+gun_data_ui = NodePath("../CanvasLayer/GunData")
+sound_player = NodePath("../AudioStreamPlayer2D")
+camera = NodePath("../Camera2D")
