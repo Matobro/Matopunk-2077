@@ -13,6 +13,10 @@ config_version=5
 config/name="Something"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[autoload]
+
+EntityManager="*res://Entity/EntityManager.gd"
+
 [display]
 
 window/size/viewport_width=1080
@@ -22,6 +26,8 @@ window/stretch/mode="viewport"
 
 entity=""
 WeaponPickup=""
+enemy=""
+bullet=""
 
 [input]
 
@@ -116,6 +122,7 @@ weapon_down={
 2d_physics/layer_5="OneWayPlatform"
 2d_physics/layer_6="Bullet"
 2d_physics/layer_7="Weapon"
+2d_physics/layer_8="enemy"
 
 [rendering]
 

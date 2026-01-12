@@ -32,73 +32,73 @@ var is_facing_right: bool = true
 
 
 func handle_orientation(body: CharacterBody2D, look_target: Vector2):
-    var distance_to_look_target = look_target.x - body.global_position.x
+	var distance_to_look_target = look_target.x - body.global_position.x
 
-    if distance_to_look_target > 0 and !is_facing_right:
-        body.scale.x *= -1
-        is_facing_right = true
+	if distance_to_look_target > 0 and !is_facing_right:
+		body.scale.x *= -1
+		is_facing_right = true
 
-    elif distance_to_look_target < 0 and is_facing_right:
-        body.scale.x *= -1
-        is_facing_right = false
+	elif distance_to_look_target < 0 and is_facing_right:
+		body.scale.x *= -1
+		is_facing_right = false
 
 func handle_movement_animation(body: CharacterBody2D, move_direction: float, look_target: Vector2, is_run: bool, is_crouch: bool, is_grounded: bool, is_slide: bool):
-    handle_orientation(body, look_target)
-    var moving_forward = is_moving_forward(move_direction)
+	handle_orientation(body, look_target)
+	var moving_forward = is_moving_forward(move_direction)
 
-    if is_slide and moving_forward:
-        animation_player.play(slide_forward)
-        animation_player.speed_scale = slide_speed
-        return
+	if is_slide and moving_forward:
+		animation_player.play(slide_forward)
+		animation_player.speed_scale = slide_speed
+		return
 
-    if is_slide and !moving_forward:
-        animation_player.play(slide_backward)
-        animation_player.speed_scale = slide_speed
-        return
+	if is_slide and !moving_forward:
+		animation_player.play(slide_backward)
+		animation_player.speed_scale = slide_speed
+		return
 
-    ## Insert falling animation here
-    if !is_grounded:
-        animation_player.play(idle)
-        animation_player.speed_scale = idle_speed
-        return
+	## Insert falling animation here
+	if !is_grounded:
+		animation_player.play(idle)
+		animation_player.speed_scale = idle_speed
+		return
 
-    #############################
-    
-    if move_direction == 0:
-        if is_crouch:
-            animation_player.play(crouch_idle)
-            animation_player.speed_scale = crouch_idle_speed
-        else:
-            animation_player.play(idle)
-            animation_player.speed_scale = idle_speed
-        return
+	#############################
+	
+	if move_direction == 0:
+		if is_crouch:
+			animation_player.play(crouch_idle)
+			animation_player.speed_scale = crouch_idle_speed
+		else:
+			animation_player.play(idle)
+			animation_player.speed_scale = idle_speed
+		return
 
-    if moving_forward:
-        if is_crouch:
-            animation_player.play(crouch_forward)
-            animation_player.speed_scale = crouch_forward_speed
-        elif is_run:
-            animation_player.play(run_forward)
-            animation_player.speed_scale = walk_forward_speed
-        else:
-            animation_player.play(walk_forward)
-            animation_player.speed_scale = walk_forward_speed
-    else:
-        if is_crouch:
-            animation_player.play(crouch_backward)
-            animation_player.speed_scale = crouch_backward_speed
-        else:
-            animation_player.play(walk_backward)
-            animation_player.speed_scale = walk_backward_speed
+	if moving_forward:
+		if is_crouch:
+			animation_player.play(crouch_forward)
+			animation_player.speed_scale = crouch_forward_speed
+		elif is_run:
+			animation_player.play(run_forward)
+			animation_player.speed_scale = walk_forward_speed
+		else:
+			animation_player.play(walk_forward)
+			animation_player.speed_scale = walk_forward_speed
+	else:
+		if is_crouch:
+			animation_player.play(crouch_backward)
+			animation_player.speed_scale = crouch_backward_speed
+		else:
+			animation_player.play(walk_backward)
+			animation_player.speed_scale = walk_backward_speed
 
 
 func handle_arms(look_target: Vector2):
-    arm_left.look_at(look_target)
-    arm_right.look_at(look_target)
+	arm_left.look_at(look_target)
+	arm_right.look_at(look_target)
 
 func is_moving_forward(move_direction: float) -> bool:
-    if move_direction == 0:
-        return false
-    
-    var moving_right = move_direction > 0
-    return moving_right == is_facing_right
+	if move_direction == 0:
+		return false
+	
+	var moving_right = move_direction > 0
+	return moving_right == is_facing_right

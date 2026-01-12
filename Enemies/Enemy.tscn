@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://d4evga38luvc"]
+[gd_scene load_steps=24 format=3 uid="uid://d4evga38luvc"]
 
 [ext_resource type="Texture2D" uid="uid://bdn3hlr1yf6wm" path="res://Player/Art/head.png" id="1_da7ms"]
+[ext_resource type="Script" uid="uid://dyxxiqhrqvf3p" path="res://Enemies/Enemy.gd" id="1_jio8c"]
 [ext_resource type="Texture2D" uid="uid://c71hacecyk0co" path="res://Player/Art/Body_Walk.png" id="2_jio8c"]
 [ext_resource type="Texture2D" uid="uid://dg38ngr1c3psa" path="res://Player/Art/arms.png" id="3_un6pf"]
 [ext_resource type="Texture2D" uid="uid://cguvxh4t4c1fi" path="res://Weapons/Sprites/smg.png" id="4_0hlsd"]
@@ -8,6 +9,9 @@
 [ext_resource type="Script" uid="uid://dckltesxep0yg" path="res://Entity/Scripts/MovementComponent.gd" id="6_n2n7y"]
 [ext_resource type="Script" uid="uid://ce7uhypxojt87" path="res://Entity/Scripts/AnimationComponent.gd" id="8_de0ly"]
 [ext_resource type="Texture2D" uid="uid://cvewqb0indy70" path="res://Crosshairs/Crosshair_01.png" id="9_lplnl"]
+[ext_resource type="Script" uid="uid://cvuuio3vlrrnu" path="res://Enemies/EnemyActions.gd" id="10_jio8c"]
+[ext_resource type="Script" uid="uid://dpujavkypckvl" path="res://Weapons/Scripts/WeaponComponent.gd" id="11_un6pf"]
+[ext_resource type="Script" uid="uid://5t7ivemd18nc" path="res://Entity/Scripts/HitComponent.gd" id="12_0hlsd"]
 
 [sub_resource type="Animation" id="Animation_0j2ni"]
 length = 0.001
@@ -355,7 +359,19 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d6ysj"]
 size = Vector2(15, 13)
 
-[node name="Enemy" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_un6pf"]
+size = Vector2(11, 32.5)
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_actions", "gravity_component", "movement_component", "animation_component", "weapon_component") groups=["entity"]]
+z_index = 50
+collision_layer = 128
+collision_mask = 7
+script = ExtResource("1_jio8c")
+enemy_actions = NodePath("EnemyActions")
+gravity_component = NodePath("GravityComponent")
+movement_component = NodePath("MovementComponent")
+animation_component = NodePath("AnimationComponent")
+weapon_component = NodePath("WeaponComponent")
 
 [node name="Head" type="Sprite2D" parent="."]
 z_index = 1
@@ -367,7 +383,7 @@ z_index = 5
 position = Vector2(0, -16)
 texture = ExtResource("2_jio8c")
 hframes = 11
-vframes = 3
+vframes = 4
 frame = 1
 
 [node name="BodyAnimation" type="AnimationPlayer" parent="."]
@@ -409,23 +425,48 @@ frame = 1
 position = Vector2(-1, -6.5)
 shape = SubResource("RectangleShape2D_d6ysj")
 
-[node name="GravityComponent" type="Node" parent="."]
+[node name="GravityComponent" type="Node" parent="." node_paths=PackedStringArray("floor_ray")]
 script = ExtResource("5_fn17s")
+floor_ray = NodePath("../RayCast2D")
 GRAVITY = 1000
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("6_n2n7y")
 speed = 75.0
 run_speed = 125.0
+walk_multiplier = 0.5
 
 [node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("animation_player", "arm_left", "arm_right")]
 script = ExtResource("8_de0ly")
-animation_player = NodePath("")
-arm_left = NodePath("")
-arm_right = NodePath("")
+animation_player = NodePath("../BodyAnimation")
+arm_left = NodePath("../Arms/ArmLeft")
+arm_right = NodePath("../Arms/ArmRight")
 
 [node name="Crosshair" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.8358751, 0, 0.0026761661, 1)
 position = Vector2(0, -30)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("9_lplnl")
+
+[node name="EnemyActions" type="Node" parent="."]
+script = ExtResource("10_jio8c")
+
+[node name="WeaponComponent" type="Node2D" parent="."]
+script = ExtResource("11_un6pf")
+metadata/_custom_type_script = "uid://dpujavkypckvl"
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 4)
+collision_mask = 16
+hit_from_inside = true
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 32
+script = ExtResource("12_0hlsd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-0.5, -16.25)
+shape = SubResource("RectangleShape2D_un6pf")
+debug_color = Color(0.7030848, 0, 0.36753848, 0.41960785)

@@ -17,8 +17,11 @@ func _physics_process(delta):
 	if lifetime <= 0:
 		queue_free()
 
-func on_body_entered(body):
-	if body.is_in_group("entity"):
-		pass
-	else:
+func on_body_entered(_body):
+	queue_free()
+
+
+func on_area_entered(area):
+	print("area hit")
+	if area.is_in_group("entity"):
 		queue_free()

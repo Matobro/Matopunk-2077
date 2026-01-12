@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://dqwf71esamcyw"]
+[gd_scene load_steps=46 format=4 uid="uid://dqwf71esamcyw"]
 
 [ext_resource type="PackedScene" uid="uid://do6p35xn2b4j" path="res://Player/Player.tscn" id="1_kyyvb"]
 [ext_resource type="Texture2D" uid="uid://jdnmi7rflvuf" path="res://Background/Cyberpunk/ship_01.png" id="7_gyvbi"]
@@ -38,6 +38,7 @@
 [ext_resource type="Resource" uid="uid://b8tur8l144f1w" path="res://Weapons/Data/Shotgun.tres" id="36_q2622"]
 [ext_resource type="PackedScene" uid="uid://vl08kigx1lpn" path="res://Weapons/Scenes/Base/WeaponPickUp.tscn" id="37_65tei"]
 [ext_resource type="Resource" uid="uid://bbljodtbehq3y" path="res://Weapons/Data/Smg.tres" id="38_gsvho"]
+[ext_resource type="PackedScene" uid="uid://d4evga38luvc" path="res://Enemies/Enemy.tscn" id="39_qtty3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oscfj"]
 texture = ExtResource("17_pvuc5")
@@ -790,3 +791,6 @@ is_debug = true
 position = Vector2(54, -233)
 weapon = ExtResource("38_gsvho")
 is_debug = true
+
+[node name="Enemy" parent="." instance=ExtResource("39_qtty3")]
+position = Vector2(182, -226)

@@ -451,7 +451,7 @@ corner_detail = 6
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_actions", "gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "gun_data_ui")]
 z_index = 50
 collision_layer = 8
-collision_mask = 31
+collision_mask = 7
 script = ExtResource("1_vlldt")
 player_actions = NodePath("PlayerActions")
 gravity_component = NodePath("GravityComponent")

@@ -36,6 +36,8 @@ var run: bool
 
 func _ready() -> void:
 	connect_signals()
+	EntityManager.register_player(self)
+
 
 func _physics_process(delta: float) -> void:
 	read_inputs()
@@ -111,7 +113,7 @@ func handle_movement() -> void:
 
 
 func handle_weapons() -> void:
-	if weapon_scroll != 0:
+	if weapon_scroll != 0 and inventory_component.get_weapons_amount() > 1:
 		change_weapon(weapon_scroll)
 		return
 

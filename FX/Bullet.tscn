@@ -6,12 +6,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wki7"]
 size = Vector2(11.5, 6.5)
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="Area2D" groups=["bullet"]]
 z_index = 60
 z_as_relative = false
 scale = Vector2(0.25, 0.25)
 collision_layer = 32
-collision_mask = 11
+collision_mask = 143
 script = ExtResource("1_8wki7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
