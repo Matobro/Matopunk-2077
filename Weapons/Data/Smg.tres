@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=11 format=3 uid="uid://bbljodtbehq3y"]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=10 format=3 uid="uid://bbljodtbehq3y"]
 
 [ext_resource type="PackedScene" uid="uid://dxk14kcccbsen" path="res://FX/Bullet.tscn" id="1_7nb1w"]
 [ext_resource type="Script" uid="uid://dqao67p2qiid5" path="res://Weapons/Scripts/WeaponData.gd" id="1_j45vw"]
@@ -8,15 +8,14 @@
 [ext_resource type="Texture2D" uid="uid://8wdcd1crbyx7" path="res://Weapons/Sprites/smg_icon.png" id="3_7nb1w"]
 [ext_resource type="AudioStream" uid="uid://117wd01o1t30" path="res://Weapons/Sounds/smg_fire.mp3" id="3_473hq"]
 [ext_resource type="PackedScene" uid="uid://br1xajstluofj" path="res://Weapons/Scenes/Smg.tscn" id="3_drve7"]
-[ext_resource type="Texture2D" uid="uid://cguvxh4t4c1fi" path="res://Weapons/Sprites/smg.png" id="4_473hq"]
 [ext_resource type="PackedScene" uid="uid://glianpoh6ail" path="res://Muzzleflashes/muzzleflash_03.tscn" id="4_eblv0"]
 
 [resource]
 script = ExtResource("1_j45vw")
 weapon_name = "Smg"
 weapon_scene = ExtResource("3_drve7")
-weapon_sprite = ExtResource("4_473hq")
-weapon_sprite_color = Color(1.545, 0.213, 0.183, 0.784)
+weapon_sprite = ExtResource("3_7nb1w")
+weapon_sprite_color = Color(1.8247963, 1.8247963, 1.8247963, 0.78431374)
 weapon_icon = ExtResource("3_7nb1w")
 bullet = ExtResource("1_7nb1w")
 cooldown = 0.05

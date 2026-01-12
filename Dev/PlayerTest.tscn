@@ -792,5 +792,25 @@ position = Vector2(54, -233)
 weapon = ExtResource("38_gsvho")
 is_debug = true
 
+[node name="WeaponPickUp5" parent="." instance=ExtResource("37_65tei")]
+position = Vector2(455, -234)
+weapon = ExtResource("36_q2622")
+is_debug = true
+
+[node name="WeaponPickUp6" parent="." instance=ExtResource("37_65tei")]
+position = Vector2(420, -233)
+weapon = ExtResource("36_q2622")
+is_debug = true
+
+[node name="WeaponPickUp7" parent="." instance=ExtResource("37_65tei")]
+position = Vector2(389, -233)
+weapon = ExtResource("36_q2622")
+is_debug = true
+
+[node name="WeaponPickUp8" parent="." instance=ExtResource("37_65tei")]
+position = Vector2(357, -233)
+weapon = ExtResource("36_q2622")
+is_debug = true
+
 [node name="Enemy" parent="." instance=ExtResource("39_qtty3")]
 position = Vector2(182, -226)

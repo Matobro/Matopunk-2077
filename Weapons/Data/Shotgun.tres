@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=11 format=3 uid="uid://b8tur8l144f1w"]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=10 format=3 uid="uid://b8tur8l144f1w"]
 
 [ext_resource type="PackedScene" uid="uid://dxk14kcccbsen" path="res://FX/Bullet.tscn" id="1_4cwln"]
 [ext_resource type="Script" uid="uid://dqao67p2qiid5" path="res://Weapons/Scripts/WeaponData.gd" id="1_oo66c"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dnlbtdi1iwokr" path="res://Muzzleflashes/muzzleflash_02.tscn" id="3_bjgh8"]
 [ext_resource type="Texture2D" uid="uid://c0qc5mkb1ubv7" path="res://Weapons/Sprites/shotgun_icon.png" id="3_d0y06"]
 [ext_resource type="PackedScene" uid="uid://dxn44gi2ykxp1" path="res://Weapons/Scenes/Shotgun.tscn" id="4_d0y06"]
-[ext_resource type="Texture2D" uid="uid://dwtmn5i0rijy5" path="res://Weapons/Sprites/shotgun.png" id="4_lnt5v"]
 [ext_resource type="AudioStream" uid="uid://dyeowfvo1loli" path="res://Weapons/Sounds/shotgun_fire.mp3" id="4_mfybs"]
 [ext_resource type="PackedScene" uid="uid://glianpoh6ail" path="res://Muzzleflashes/muzzleflash_03.tscn" id="4_xytyp"]
 
@@ -15,8 +14,8 @@
 script = ExtResource("1_oo66c")
 weapon_name = "Shotgun"
 weapon_scene = ExtResource("4_d0y06")
-weapon_sprite = ExtResource("4_lnt5v")
-weapon_sprite_color = Color(1, 0.27450982, 0.21176471, 1)
+weapon_sprite = ExtResource("3_d0y06")
+weapon_sprite_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
 weapon_icon = ExtResource("3_d0y06")
 bullet = ExtResource("1_4cwln")
 mag_size = 6
