@@ -10,6 +10,8 @@ class_name Player
 @export var animation_component: AnimationComponent
 @export var inventory_component: InventoryComponent
 @export var weapon_component: WeaponComponent
+@export var stat_component: StatComponent
+@export var hit_component: HitComponent
 
 @export var gun_data_ui: GunDataUI
 
@@ -64,6 +66,8 @@ func connect_signals():
 	weapon_component.shot_fired.connect(player_actions.shot_fired)
 
 	inventory_component.connect("gained_weapon", gained_weapon)
+
+	hit_component.connect("bullet_hit", on_bullet_hit)
 
 
 func read_inputs() -> void:
@@ -138,9 +142,6 @@ func handle_animation() -> void:
 	animation_component.handle_arms(aim)
 
 
-## Weapon managing ##
-
-
 func change_weapon(index_direction: int):
 	if index_direction == 0: return
 	
@@ -164,3 +165,7 @@ func gained_weapon(weapon_data: WeaponData):
 		weapon_component.swap_weapon(weapon_data)
 		inventory_component.commit_equip(0)
 		pass
+
+
+func on_bullet_hit(damage):
+	stat_component.take_damage(damage)

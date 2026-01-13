@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d4evga38luvc"]
+[gd_scene load_steps=28 format=3 uid="uid://d4evga38luvc"]
 
 [ext_resource type="Texture2D" uid="uid://bdn3hlr1yf6wm" path="res://Player/Art/head.png" id="1_da7ms"]
 [ext_resource type="Script" uid="uid://dyxxiqhrqvf3p" path="res://Enemies/Enemy.gd" id="1_jio8c"]
@@ -12,6 +12,10 @@
 [ext_resource type="Script" uid="uid://cvuuio3vlrrnu" path="res://Enemies/EnemyActions.gd" id="10_jio8c"]
 [ext_resource type="Script" uid="uid://dpujavkypckvl" path="res://Weapons/Scripts/WeaponComponent.gd" id="11_un6pf"]
 [ext_resource type="Script" uid="uid://5t7ivemd18nc" path="res://Entity/Scripts/HitComponent.gd" id="12_0hlsd"]
+[ext_resource type="Script" uid="uid://26pohks38t58" path="res://Entity/Scripts/StatComponent.gd" id="13_fn17s"]
+[ext_resource type="PackedScene" uid="uid://dwy7n22suukg6" path="res://FX/BloodParticle.tscn" id="13_od5md"]
+[ext_resource type="Resource" uid="uid://biwy1bmaihlqb" path="res://Entity/Data/EnemyStats.tres" id="14_n2n7y"]
+[ext_resource type="Script" uid="uid://p6q6m3lp6y16" path="res://Enemies/GunDudeAI.gd" id="16_de0ly"]
 
 [sub_resource type="Animation" id="Animation_0j2ni"]
 length = 0.001
@@ -362,7 +366,7 @@ size = Vector2(15, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_un6pf"]
 size = Vector2(11, 32.5)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_actions", "gravity_component", "movement_component", "animation_component", "weapon_component") groups=["entity"]]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_actions", "gravity_component", "movement_component", "animation_component", "weapon_component", "hit_component", "stat_component", "ai_component") groups=["entity"]]
 z_index = 50
 collision_layer = 128
 collision_mask = 7
@@ -372,6 +376,9 @@ gravity_component = NodePath("GravityComponent")
 movement_component = NodePath("MovementComponent")
 animation_component = NodePath("AnimationComponent")
 weapon_component = NodePath("WeaponComponent")
+hit_component = NodePath("HitBox")
+stat_component = NodePath("StatComponent")
+ai_component = NodePath("GunDudeAI")
 
 [node name="Head" type="Sprite2D" parent="."]
 z_index = 1
@@ -461,12 +468,26 @@ target_position = Vector2(0, 4)
 collision_mask = 16
 hit_from_inside = true
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." groups=["entity"]]
 collision_layer = 128
 collision_mask = 32
 script = ExtResource("12_0hlsd")
+blood_particle = ExtResource("13_od5md")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-0.5, -16.25)
 shape = SubResource("RectangleShape2D_un6pf")
 debug_color = Color(0.7030848, 0, 0.36753848, 0.41960785)
+
+[node name="StatComponent" type="Node" parent="."]
+script = ExtResource("13_fn17s")
+debug_stats = ExtResource("14_n2n7y")
+metadata/_custom_type_script = "uid://26pohks38t58"
+
+[node name="GunDudeAI" type="Node" parent="."]
+script = ExtResource("16_de0ly")
+chances = {
+0: 1,
+1: 2
+}
+metadata/_custom_type_script = "uid://p6q6m3lp6y16"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=3 format=3 uid="uid://def5qgl6ogmxj"]
+
+[ext_resource type="Script" uid="uid://nmasgegivmu1" path="res://Weapons/Bullets/Scripts/BulletData.gd" id="1_m6van"]
+[ext_resource type="Texture2D" uid="uid://c4oyey7e3mhof" path="res://Weapons/Bullets/Sprites/bulet.png" id="1_tktnd"]
+
+[resource]
+script = ExtResource("1_m6van")
+bullet_sprite = ExtResource("1_tktnd")
+metadata/_custom_type_script = "uid://nmasgegivmu1"

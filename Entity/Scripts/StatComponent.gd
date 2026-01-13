@@ -15,26 +15,42 @@ func _ready():
 	stats.initialize()
 
 
-func take_damage(amount: int):
-	var old_health = stats.get_current("HEALTH")
-	if old_health <= 0:
+func take_damage(amount: int) -> void:
+	if amount <= 0:
 		return
 
-	stats.current["HEALTH"] = old_health - amount
-	stats.clamp_current("health")
+	var old_hp := stats.get_current(StatKeys.HEALTH)
+	if old_hp <= 0:
+		return
 
-	emit_signal("health_changed", old_health, stats.get_current("HEALTH"))
+	stats.change_current(StatKeys.HEALTH, -amount)
 
-	if stats.get_current("health") <= 0:
+	var new_hp := stats.get_current(StatKeys.HEALTH)
+	emit_signal("health_changed", old_hp, new_hp)
+
+	if new_hp <= 0:
 		emit_signal("died")
 
+	print(old_hp, " -> ", new_hp)
 
-func heal(amount: int):
-	var old_health = stats.get_current("HEALTH")
-	if old_health <= 0:
+
+func heal(amount: int) -> void:
+	if amount <= 0:
 		return
 
-	stats.current["health"] = old_health + amount
-	stats.clamp_current("HEALTH")
+	var old_hp := stats.get_current(StatKeys.HEALTH)
+	if old_hp <= 0:
+		return
 
-	emit_signal("health_changed", old_health, stats.get_current("HEALTH"))
+	stats.change_current(StatKeys.HEALTH, amount)
+
+	var new_hp := stats.get_current(StatKeys.HEALTH)
+	emit_signal("health_changed", old_hp, new_hp)
+
+
+func get_health() -> int:
+	return stats.get_current(StatKeys.HEALTH)
+
+
+func get_max_health() -> int:
+	return stats.get_final(StatKeys.MAX_HEALTH)

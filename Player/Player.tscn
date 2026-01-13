@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://do6p35xn2b4j"]
+[gd_scene load_steps=42 format=3 uid="uid://do6p35xn2b4j"]
 
 [ext_resource type="Texture2D" uid="uid://bdn3hlr1yf6wm" path="res://Player/Art/head.png" id="1_ddoul"]
 [ext_resource type="Script" uid="uid://cyoosh2y06xs" path="res://Player/Player.gd" id="1_vlldt"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://26pohks38t58" path="res://Entity/Scripts/StatComponent.gd" id="17_8sa4y"]
 [ext_resource type="Resource" uid="uid://dq3bjdxwb1x7s" path="res://Entity/Data/PlayerStats.tres" id="18_3nb2p"]
 [ext_resource type="Script" uid="uid://bshx6hiwe21cd" path="res://Player/PlayerActions.gd" id="19_d7xyo"]
+[ext_resource type="Script" uid="uid://5t7ivemd18nc" path="res://Entity/Scripts/HitComponent.gd" id="20_evw08"]
 
 [sub_resource type="Animation" id="Animation_0j2ni"]
 length = 0.001
@@ -400,7 +401,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddoul"]
-size = Vector2(15, 14)
+size = Vector2(14, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0k0e"]
 
@@ -448,7 +449,10 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 6
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_actions", "gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "gun_data_ui")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evw08"]
+size = Vector2(11, 33)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_actions", "gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "stat_component", "hit_component", "gun_data_ui")]
 z_index = 50
 collision_layer = 8
 collision_mask = 23
@@ -460,6 +464,8 @@ input_component = NodePath("InputComponent")
 animation_component = NodePath("AnimationComponent")
 inventory_component = NodePath("InventoryComponent")
 weapon_component = NodePath("Arms/ArmLeft/Hand/WeaponComponent")
+stat_component = NodePath("StatComponent")
+hit_component = NodePath("HitComponent")
 gun_data_ui = NodePath("CanvasLayer/GunData")
 
 [node name="Head" type="Sprite2D" parent="."]
@@ -505,8 +511,9 @@ hframes = 2
 frame = 1
 
 [node name="GroundCheck" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -7)
+position = Vector2(-1, -2)
 shape = SubResource("RectangleShape2D_ddoul")
+debug_color = Color(0, 1, 0, 1)
 
 [node name="GravityComponent" type="Node" parent="." node_paths=PackedStringArray("floor_ray")]
 script = ExtResource("5_6ysni")
@@ -546,7 +553,7 @@ script = ExtResource("11_5wa8t")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryComponent"]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_v0k0e")
-debug_color = Color(0.960107, 3.85046e-07, 0.520599, 0.419608)
+debug_color = Color(0.34482664, 0.49434716, 1, 0.41960785)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -631,3 +638,12 @@ script = ExtResource("19_d7xyo")
 gun_data_ui = NodePath("../CanvasLayer/GunData")
 sound_player = NodePath("../AudioStreamPlayer2D")
 camera = NodePath("../Camera2D")
+
+[node name="HitComponent" type="Area2D" parent="."]
+script = ExtResource("20_evw08")
+metadata/_custom_type_script = "uid://5t7ivemd18nc"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
+position = Vector2(0.5, -16.5)
+shape = SubResource("RectangleShape2D_evw08")
+debug_color = Color(0.964333, 0, 0.4962629, 0.41960785)

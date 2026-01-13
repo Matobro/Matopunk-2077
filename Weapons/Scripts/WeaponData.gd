@@ -11,6 +11,7 @@ class_name WeaponData
 @export var weapon_sprite_color: Color
 @export var weapon_icon: Texture2D
 @export var bullet: PackedScene
+@export var bullet_data: BulletData
 
 @export_category("Weapon Stats")
 @export var cooldown: float = 0.5

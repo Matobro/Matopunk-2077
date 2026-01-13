@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=8 format=3 uid="uid://bwwtg0k35tanh"]
 
-[ext_resource type="PackedScene" uid="uid://dxk14kcccbsen" path="res://FX/Bullet.tscn" id="1_7my7j"]
+[ext_resource type="PackedScene" uid="uid://dxk14kcccbsen" path="res://Weapons/Bullets/Data/BulletBase.tscn" id="1_7my7j"]
 [ext_resource type="Script" uid="uid://dqao67p2qiid5" path="res://Weapons/Scripts/WeaponData.gd" id="1_gdsj6"]
 [ext_resource type="PackedScene" uid="uid://br1xajstluofj" path="res://Weapons/Scenes/Smg.tscn" id="2_06jce"]
 [ext_resource type="AudioStream" uid="uid://cyoaggyvkerhs" path="res://Weapons/Sounds/smg_reload.mp3" id="2_kfsiq"]

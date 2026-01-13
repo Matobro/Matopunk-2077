@@ -4,6 +4,7 @@ class_name Weapon
 
 
 var weapon_data: WeaponData
+var bullet_data: BulletData
 @onready var barrel = $Barrel
 
 signal magazine_changed(magazine: int)
@@ -20,7 +21,7 @@ func spawn_bullet(bullet_rotation: float):
 	bullet_instance.global_position = barrel.global_position
 
 	## Setup bullet
-	bullet_instance.create_bullet(5)
+	bullet_instance.initialize_bullet(bullet_data, weapon_data)
 	get_tree().current_scene.add_child(bullet_instance)
 
 

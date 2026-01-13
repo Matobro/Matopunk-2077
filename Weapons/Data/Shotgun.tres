@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=10 format=3 uid="uid://b8tur8l144f1w"]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=11 format=3 uid="uid://b8tur8l144f1w"]
 
-[ext_resource type="PackedScene" uid="uid://dxk14kcccbsen" path="res://FX/Bullet.tscn" id="1_4cwln"]
+[ext_resource type="PackedScene" uid="uid://dxk14kcccbsen" path="res://Weapons/Bullets/Data/BulletBase.tscn" id="1_bjgh8"]
 [ext_resource type="Script" uid="uid://dqao67p2qiid5" path="res://Weapons/Scripts/WeaponData.gd" id="1_oo66c"]
 [ext_resource type="AudioStream" uid="uid://cf5674md72e3w" path="res://Weapons/Sounds/shotgun_reload.mp3" id="2_k1oap"]
 [ext_resource type="PackedScene" uid="uid://bmw6dmq1wayd4" path="res://Muzzleflashes/muzzleflash_01.tscn" id="2_mfybs"]
+[ext_resource type="Resource" uid="uid://do1iy7vmvv88q" path="res://Weapons/Bullets/Data/ShotgunBullet.tres" id="2_xytyp"]
 [ext_resource type="PackedScene" uid="uid://dnlbtdi1iwokr" path="res://Muzzleflashes/muzzleflash_02.tscn" id="3_bjgh8"]
 [ext_resource type="Texture2D" uid="uid://c0qc5mkb1ubv7" path="res://Weapons/Sprites/shotgun_icon.png" id="3_d0y06"]
 [ext_resource type="PackedScene" uid="uid://dxn44gi2ykxp1" path="res://Weapons/Scenes/Shotgun.tscn" id="4_d0y06"]
@@ -17,9 +18,11 @@ weapon_scene = ExtResource("4_d0y06")
 weapon_sprite = ExtResource("3_d0y06")
 weapon_sprite_color = Color(1.8247963, 1.8247963, 1.8247963, 1)
 weapon_icon = ExtResource("3_d0y06")
-bullet = ExtResource("1_4cwln")
+bullet = ExtResource("1_bjgh8")
+bullet_data = ExtResource("2_xytyp")
 mag_size = 6
 repick_ammo_value = 30
+damage = 5
 bullets = 3
 kick_strength = 1.0
 kick_fade_speed = 10.0

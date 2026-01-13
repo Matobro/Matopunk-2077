@@ -30,6 +30,7 @@ func swap_weapon(weapon_data: WeaponData):
 	## Spawn weapon	
 	current_weapon = weapon_data.get_weapon_scene().instantiate()
 	current_weapon.weapon_data = weapon_data
+	current_weapon.bullet_data = weapon_data.bullet_data
 	current_weapon.weapon_data.initialize_weapon()
 	add_child(current_weapon)
 

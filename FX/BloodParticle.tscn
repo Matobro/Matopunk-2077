@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwy7n22suukg6"]
+
+[ext_resource type="Texture2D" uid="uid://b1kyq788qbm0i" path="res://UI/wsquare.png" id="1_0dbuh"]
+[ext_resource type="Script" uid="uid://rkwbu3517mne" path="res://FX/BloodParticle.gd" id="1_rgrsy"]
+
+[node name="BloodParticle" type="Node2D"]
+z_index = 60
+script = ExtResource("1_rgrsy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.7763669, 0, 0, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_0dbuh")

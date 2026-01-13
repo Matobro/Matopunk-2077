@@ -3,57 +3,62 @@ class_name Stats
 
 @export_category("Base Stats")
 @export var HEALTH: int = 50
-@export var MAXHEALTH: int = 50
+@export var MAX_HEALTH: int = 50
 
-@export var current_map: Dictionary = {
-	"HEALTH": "MAXHEALTH"
-}
-
-var stat_names := ["HEALTH","MAXHEALTH"]
-
-# current stats
-var current: Dictionary = {}
-
-# buffs/debuffs for each stat
-var modifiers: Dictionary = {}
+var _base := {}
+var _current := {}
+var _modifiers := {}
 
 
 func initialize():
-	for current_stat in current_map.keys():
-		var max_stat = current_map[current_stat]
-		current[current_stat] = get_stat(max_stat)
+	_base.clear()
+	_current.clear()
+	_modifiers.clear()
+
+	for prop in get_property_list():
+		if prop.usage & PROPERTY_USAGE_EDITOR == 0:
+			continue
+
+		if prop.name == prop.name.to_upper():
+			var value = get(prop.name)
+			_base[prop.name] = value
+			_current[prop.name] = value
+			_modifiers[prop.name] = 0
 
 
-func get_stat(name: String) -> int:
-	if name in stat_names:
-		return get(name)
-	return 0
+func get_stat(stat: String) -> int:
+	return _base.get(stat, 0)
 
 
-func set_stat(name: String, value: int):
-	if name in stat_names:
-		set(name, value)
+func get_current(stat: String) -> int:
+	return _current.get(stat, 0)
 
 
-func get_current(name: String) -> int:
-	return current.get(name, 0)
+func get_final(stat: String) -> int:
+	return get_current(stat) + _modifiers.get(stat, 0)
 
 
-func get_final(name: String) -> int:
-	return get_current(name) + modifiers.get(name, 0)
-
-
-func add_modifier(name: String, amount: int):
-	modifiers[name] = modifiers.get(name, 0) + amount
-	clamp_current(name)
-
-
-func clamp_current(current_stat: String):
-	var max_stat = current_map.get(current_stat, null)
-	if max_stat == null:
+func set_current(stat: String, value: int):
+	if not stat in _current:
 		return
-	current[current_stat] = clamp(
-		current[current_stat],
-		0,
-		get_final(max_stat)
-	)
+	_current[stat] = value
+	_clamp(stat)
+
+
+func change_current(stat: String, delta: int):
+	set_current(stat, get_current(stat) + delta)
+
+
+func add_modifier(stat: String, value: int):
+	_modifiers[stat] += value
+	_clamp(stat)
+
+
+func _clamp(stat: String):
+	var max_key := "MAX_" + stat
+	if max_key in _base:
+		_current[stat] = clamp(
+			_current[stat],
+			0,
+			get_final(max_key)
+		)
