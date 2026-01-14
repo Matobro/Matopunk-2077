@@ -29,6 +29,7 @@ entity=""
 WeaponPickup=""
 enemy=""
 bullet=""
+player=""
 
 [input]
 

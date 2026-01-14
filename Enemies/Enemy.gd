@@ -11,6 +11,10 @@ class_name Enemy
 @export var hit_component: HitComponent
 @export var stat_component: StatComponent
 @export var ai_component: EnemyAI
+@export var sight_component: SightComponent
+
+@export_category("Enemy Settings")
+@export var weapon: WeaponData
 
 ## Input info
 var movement_direction: int
@@ -29,6 +33,7 @@ func _ready() -> void:
 	connect_signals()
 	ai_component.initialize_ai(self)
 	EntityManager.register_enemy(self)
+	equip_weapon()
 
 	
 func connect_signals():
@@ -37,6 +42,9 @@ func connect_signals():
 	hit_component.bullet_hit.connect(on_bullet_hit)
 	ai_component.set_movement_direction.connect(set_movement_direction)
 	ai_component.set_aim_position.connect(set_aim_position)
+	sight_component.spotted_target.connect(on_target_spotted)
+	ai_component.call_shoot.connect(call_shoot)
+	weapon_component.unlimited_ammo = true
 
 
 func _physics_process(delta: float) -> void:
@@ -84,6 +92,10 @@ func handle_animation() -> void:
 	animation_component.handle_arms(aim)
 
 
+func equip_weapon():
+	weapon_component.swap_weapon(weapon)
+
+
 func set_movement_direction(dir):
 	movement_direction = dir
 
@@ -94,3 +106,11 @@ func set_aim_position(pos: Vector2):
 
 func on_bullet_hit(damage):
 	stat_component.take_damage(damage)
+
+
+func on_target_spotted(player: Player):
+	ai_component.target_spotted(player)
+
+
+func call_shoot():
+	weapon_component.try_shoot()

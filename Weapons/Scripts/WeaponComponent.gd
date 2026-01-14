@@ -11,6 +11,8 @@ var cooldown_timer: float = 0.0
 var reload_timer: float = 0.0
 var reload_time: float = 0.0
 
+var unlimited_ammo: bool = false
+
 signal magazine_changed(magazine: int)
 signal ammo_changed(ammo: int)
 signal weapon_changed(weapon: Weapon)
@@ -113,7 +115,8 @@ func on_reload_done():
 
 	var transfer = min(ammo_missing, data.ammo_total)
 	data.mag_left += transfer
-	data.ammo_total -= transfer
+	if !unlimited_ammo:
+		data.ammo_total -= transfer
 
 	emit_signal("magazine_changed", data.mag_left)
 	emit_signal("ammo_changed", data.ammo_total)

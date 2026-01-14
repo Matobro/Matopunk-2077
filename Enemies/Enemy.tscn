@@ -1,10 +1,10 @@
-[gd_scene load_steps=28 format=3 uid="uid://d4evga38luvc"]
+[gd_scene load_steps=30 format=3 uid="uid://d4evga38luvc"]
 
 [ext_resource type="Texture2D" uid="uid://bdn3hlr1yf6wm" path="res://Player/Art/head.png" id="1_da7ms"]
 [ext_resource type="Script" uid="uid://dyxxiqhrqvf3p" path="res://Enemies/Enemy.gd" id="1_jio8c"]
+[ext_resource type="Resource" uid="uid://bbljodtbehq3y" path="res://Weapons/Data/Smg.tres" id="2_d6ysj"]
 [ext_resource type="Texture2D" uid="uid://c71hacecyk0co" path="res://Player/Art/Body_Walk.png" id="2_jio8c"]
 [ext_resource type="Texture2D" uid="uid://dg38ngr1c3psa" path="res://Player/Art/arms.png" id="3_un6pf"]
-[ext_resource type="Texture2D" uid="uid://cguvxh4t4c1fi" path="res://Weapons/Sprites/smg.png" id="4_0hlsd"]
 [ext_resource type="Script" uid="uid://cugqlecc825gr" path="res://Entity/Scripts/GravityComponent.gd" id="5_fn17s"]
 [ext_resource type="Script" uid="uid://dckltesxep0yg" path="res://Entity/Scripts/MovementComponent.gd" id="6_n2n7y"]
 [ext_resource type="Script" uid="uid://ce7uhypxojt87" path="res://Entity/Scripts/AnimationComponent.gd" id="8_de0ly"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://dwy7n22suukg6" path="res://FX/BloodParticle.tscn" id="13_od5md"]
 [ext_resource type="Resource" uid="uid://biwy1bmaihlqb" path="res://Entity/Data/EnemyStats.tres" id="14_n2n7y"]
 [ext_resource type="Script" uid="uid://p6q6m3lp6y16" path="res://Enemies/GunDudeAI.gd" id="16_de0ly"]
+[ext_resource type="Script" uid="uid://6tji0tucb81r" path="res://Entity/SightComponent.gd" id="17_lplnl"]
+[ext_resource type="Script" uid="uid://kphv2qqri162" path="res://Audio/SoundPlayer.gd" id="18_d6ysj"]
 
 [sub_resource type="Animation" id="Animation_0j2ni"]
 length = 0.001
@@ -366,7 +368,7 @@ size = Vector2(15, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_un6pf"]
 size = Vector2(11, 32.5)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_actions", "gravity_component", "movement_component", "animation_component", "weapon_component", "hit_component", "stat_component", "ai_component") groups=["entity"]]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_actions", "gravity_component", "movement_component", "animation_component", "weapon_component", "hit_component", "stat_component", "ai_component", "sight_component") groups=["entity"]]
 z_index = 50
 collision_layer = 128
 collision_mask = 7
@@ -375,10 +377,12 @@ enemy_actions = NodePath("EnemyActions")
 gravity_component = NodePath("GravityComponent")
 movement_component = NodePath("MovementComponent")
 animation_component = NodePath("AnimationComponent")
-weapon_component = NodePath("WeaponComponent")
+weapon_component = NodePath("Arms/ArmLeft/Hand/WeaponComponent")
 hit_component = NodePath("HitBox")
 stat_component = NodePath("StatComponent")
 ai_component = NodePath("GunDudeAI")
+sight_component = NodePath("SightComponent")
+weapon = ExtResource("2_d6ysj")
 
 [node name="Head" type="Sprite2D" parent="."]
 z_index = 1
@@ -411,15 +415,10 @@ hframes = 2
 [node name="Hand" type="Marker2D" parent="Arms/ArmLeft"]
 position = Vector2(11, 0)
 
-[node name="Gun" type="Sprite2D" parent="Arms/ArmLeft/Hand"]
-z_index = 6
-position = Vector2(-4, 0)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_0hlsd")
-offset = Vector2(6, 0)
-
-[node name="Barrel" type="Marker2D" parent="Arms/ArmLeft/Hand/Gun"]
-position = Vector2(22, -4)
+[node name="WeaponComponent" type="Node2D" parent="Arms/ArmLeft/Hand"]
+z_index = 2
+script = ExtResource("11_un6pf")
+metadata/_custom_type_script = "uid://dpujavkypckvl"
 
 [node name="ArmRight" type="Sprite2D" parent="Arms"]
 z_index = 7
@@ -456,12 +455,9 @@ position = Vector2(0, -30)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("9_lplnl")
 
-[node name="EnemyActions" type="Node" parent="."]
+[node name="EnemyActions" type="Node" parent="." node_paths=PackedStringArray("sound_player")]
 script = ExtResource("10_jio8c")
-
-[node name="WeaponComponent" type="Node2D" parent="."]
-script = ExtResource("11_un6pf")
-metadata/_custom_type_script = "uid://dpujavkypckvl"
+sound_player = NodePath("../AudioStreamPlayer2D")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 4)
@@ -484,10 +480,17 @@ script = ExtResource("13_fn17s")
 debug_stats = ExtResource("14_n2n7y")
 metadata/_custom_type_script = "uid://26pohks38t58"
 
-[node name="GunDudeAI" type="Node" parent="."]
+[node name="GunDudeAI" type="Node2D" parent="."]
 script = ExtResource("16_de0ly")
-chances = {
-0: 1,
-1: 2
-}
-metadata/_custom_type_script = "uid://p6q6m3lp6y16"
+
+[node name="SightComponent" type="Area2D" parent="."]
+position = Vector2(1, -29)
+collision_layer = 128
+collision_mask = 8
+script = ExtResource("17_lplnl")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SightComponent"]
+polygon = PackedVector2Array(0, 0, 400, -50, 400, 50)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("18_d6ysj")
