@@ -44,6 +44,7 @@ func connect_signals():
 	ai_component.set_aim_position.connect(set_aim_position)
 	sight_component.spotted_target.connect(on_target_spotted)
 	ai_component.call_shoot.connect(call_shoot)
+	ai_component.set_run.connect(set_run)
 	weapon_component.unlimited_ammo = true
 
 
@@ -93,7 +94,7 @@ func handle_animation() -> void:
 
 
 func equip_weapon():
-	weapon_component.swap_weapon(weapon)
+	weapon_component.swap_weapon(weapon, true)
 
 
 func set_movement_direction(dir):
@@ -114,3 +115,7 @@ func on_target_spotted(player: Player):
 
 func call_shoot():
 	weapon_component.try_shoot()
+
+
+func set_run(value):
+	run = value

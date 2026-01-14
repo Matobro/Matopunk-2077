@@ -13,6 +13,7 @@ class_name Player
 @export var stat_component: StatComponent
 @export var hit_component: HitComponent
 
+@export var health_ui: HealthUI
 @export var gun_data_ui: GunDataUI
 
 ## Input info
@@ -64,11 +65,15 @@ func connect_signals():
 	weapon_component.reload_progress.connect(player_actions.reload_progress)
 	weapon_component.reload_done.connect(player_actions.reload_done)
 	weapon_component.shot_fired.connect(player_actions.shot_fired)
+	stat_component.current_health_changed.connect(player_actions.on_current_health_changed)
+	stat_component.max_health_changed.connect(player_actions.on_max_health_changed)
 
 	inventory_component.connect("gained_weapon", gained_weapon)
 
 	hit_component.connect("bullet_hit", on_bullet_hit)
 
+	movement_component.slide_started.connect(on_slide_start)
+	movement_component.slide_ended.connect(on_slide_end)
 
 func read_inputs() -> void:
 	input_x = input_component.input_horizontal
@@ -106,7 +111,7 @@ func handle_movement() -> void:
 			crouch
 		)
 
-	if !slide_state and is_grounded and slide_input and run:
+	if !slide_state and slide_input and run:
 		movement_component.start_slide(self, input_x)
 
 	if is_grounded and jump_input:
@@ -155,17 +160,25 @@ func change_weapon(index_direction: int):
 		request = inventory_component.get_previous_weapon()
 
 	if request[0] != null:
-		weapon_component.swap_weapon(request[0])
+		weapon_component.swap_weapon(request[0], false)
 		inventory_component.commit_equip(request[1])
 
 
 func gained_weapon(weapon_data: WeaponData):
 	if inventory_component.get_weapons_amount() <= 1:
 		gun_data_ui.show_gun_data(true)
-		weapon_component.swap_weapon(weapon_data)
+		weapon_component.swap_weapon(weapon_data, false)
 		inventory_component.commit_equip(0)
 		pass
 
 
 func on_bullet_hit(damage):
 	stat_component.take_damage(damage)
+
+
+func on_slide_start():
+	hit_component.set_collision_enabled(false)
+
+
+func on_slide_end():
+	hit_component.set_collision_enabled(true)

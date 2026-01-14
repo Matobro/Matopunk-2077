@@ -28,20 +28,16 @@ func _ready() -> void:
 	speed_y = randf_range(min_speed_y, 0)
 
 func _physics_process(delta):
-	# Horizontal + initial direction movement
 	global_position += Vector2.RIGHT.rotated(rotation) * speed * delta
 
-	# Gravity (makes it fall more as it slows horizontally)
-	var gravity := 1200.0      # pixels per second², tweak to your liking
-	var drag := 0.9           # horizontal slowdown factor (0-1)
+	var gravity := 1200.0
+	var drag := 0.9
 
-	# Apply horizontal drag
-	speed *= pow(drag, delta)  # slows down horizontal movement over time
+	speed *= pow(drag, delta)
 
 	var gravity_factor = 1.0 - clamp(speed / start_speed, 0, 1)
 	global_position.y += speed_y + gravity * gravity_factor * delta
 
-	# Reduce life time
 	life_time -= delta
 	if life_time <= 0:
 		queue_free()

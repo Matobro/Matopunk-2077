@@ -4,7 +4,6 @@ class_name MovementComponent
 
 @export_category("Run/Walk Settings")
 @export var speed: float = 100
-@export var run_speed: float = 150
 @export var backward_walk_multiplier: float = 0.8
 @export var walk_multiplier: float = 1.0
 @export var run_multiplier: float = 1.5
@@ -21,6 +20,9 @@ class_name MovementComponent
 
 var is_sliding: bool = false
 var slide_timer: float = 0.0
+
+signal slide_started()
+signal slide_ended()
 
 func handle_horizontal_movement(body: CharacterBody2D, direction: float, run: bool, moving_forward: bool, crouch: bool):
     var multiplier = 1
@@ -53,7 +55,6 @@ func drop_down(body: CharacterBody2D):
 
 func slide(body: CharacterBody2D, direction: float):
     body.velocity.x = direction * slide_force
-    print("preforming slide")
 
 
 func start_slide(body: CharacterBody2D, direction: float):
@@ -63,9 +64,12 @@ func start_slide(body: CharacterBody2D, direction: float):
     slide_timer = slide_duration
     slide(body, direction)
 
+    emit_signal("slide_started")
+
 
 func end_slide():
     is_sliding = false
+    emit_signal("slide_ended")
 
 
 func get_slide_state() -> bool:

@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dwy7n22suukg6" path="res://FX/BloodParticle.tscn" id="13_od5md"]
 [ext_resource type="Resource" uid="uid://biwy1bmaihlqb" path="res://Entity/Data/EnemyStats.tres" id="14_n2n7y"]
 [ext_resource type="Script" uid="uid://p6q6m3lp6y16" path="res://Enemies/GunDudeAI.gd" id="16_de0ly"]
-[ext_resource type="Script" uid="uid://6tji0tucb81r" path="res://Entity/SightComponent.gd" id="17_lplnl"]
+[ext_resource type="Script" uid="uid://6tji0tucb81r" path="res://Entity/Scripts/SightComponent.gd" id="17_lplnl"]
 [ext_resource type="Script" uid="uid://kphv2qqri162" path="res://Audio/SoundPlayer.gd" id="18_d6ysj"]
 
 [sub_resource type="Animation" id="Animation_0j2ni"]
@@ -368,7 +368,7 @@ size = Vector2(15, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_un6pf"]
 size = Vector2(11, 32.5)
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_actions", "gravity_component", "movement_component", "animation_component", "weapon_component", "hit_component", "stat_component", "ai_component", "sight_component") groups=["entity"]]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("enemy_actions", "gravity_component", "movement_component", "animation_component", "weapon_component", "hit_component", "stat_component", "ai_component", "sight_component") groups=["enemy", "entity"]]
 z_index = 50
 collision_layer = 128
 collision_mask = 7
@@ -438,8 +438,7 @@ GRAVITY = 1000
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("6_n2n7y")
-speed = 75.0
-run_speed = 125.0
+speed = 60.0
 walk_multiplier = 0.5
 
 [node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("animation_player", "arm_left", "arm_right")]
@@ -464,7 +463,7 @@ target_position = Vector2(0, 4)
 collision_mask = 16
 hit_from_inside = true
 
-[node name="HitBox" type="Area2D" parent="." groups=["entity"]]
+[node name="HitBox" type="Area2D" parent="." groups=["enemy", "entity"]]
 collision_layer = 128
 collision_mask = 32
 script = ExtResource("12_0hlsd")
@@ -482,6 +481,9 @@ metadata/_custom_type_script = "uid://26pohks38t58"
 
 [node name="GunDudeAI" type="Node2D" parent="."]
 script = ExtResource("16_de0ly")
+max_range = 150.0
+shoot_range = 175.0
+aim_variance = 10.0
 
 [node name="SightComponent" type="Area2D" parent="."]
 position = Vector2(1, -29)

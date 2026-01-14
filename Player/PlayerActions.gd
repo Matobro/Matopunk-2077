@@ -4,6 +4,7 @@ class_name PlayerActions
 
 @export_category("Dependencies")
 @export var gun_data_ui: GunDataUI
+@export var health_ui: HealthUI
 @export var sound_player: SoundPlayer
 @export var camera: PlayerCamera
 
@@ -42,3 +43,11 @@ func reload_done(data: WeaponData, cancelled: bool = false):
 func shot_fired(data: WeaponData):
 	sound_player.play_audio(data.shoot)
 	camera.apply_camera_shake(data.kick_strength, data.kick_fade_speed)
+
+
+func on_current_health_changed(new_value: int):
+	health_ui.update_current_health(new_value)
+
+
+func on_max_health_changed(health: int):
+	health_ui.update_max_health(health)

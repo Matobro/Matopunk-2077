@@ -32,6 +32,9 @@ class_name WeaponData
 @export var muzzle_effects: Array[PackedScene]
 @export var muzzle_scale: float = 0.6
 
+@export_category("AI")
+@export var handicap_multiplier: float = 2.0
+
 var ammo_total: int = 60
 var mag_left: int = 1
 

@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 
 [autoload]
 
-EntityManager="*res://Entity/EntityManager.gd"
+EntityManager="*res://Entity/Scripts/EntityManager.gd"
 
 [display]
 

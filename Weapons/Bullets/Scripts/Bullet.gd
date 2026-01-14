@@ -44,8 +44,16 @@ func on_body_entered(body):
 func on_area_entered(area: Area2D):
 	if area.is_in_group("entity"):
 
-		var hit_position: Vector2 = global_position
-		var hit_direction: Vector2 = Vector2.RIGHT.rotated(rotation)
+		if area.is_in_group("player"):
+			bullet_hit(area)
 
-		area.on_bullet_hit(bullet_damage, hit_position, hit_direction)
-		queue_free()
+		elif area.is_in_group("enemy"):
+			bullet_hit(area)
+
+
+func bullet_hit(area: Area2D):
+	var hit_position: Vector2 = global_position
+	var hit_direction: Vector2 = Vector2.RIGHT.rotated(rotation)
+
+	area.on_bullet_hit(bullet_damage, hit_position, hit_direction)
+	queue_free()

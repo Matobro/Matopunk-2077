@@ -12,6 +12,6 @@ func _ready():
 		assign_weapon(weapon)
 
 func assign_weapon(weapon_ref: WeaponData):
-	weapon = weapon_ref
+	weapon = weapon_ref.duplicate(true)
 	sprite.texture = weapon.get_weapon_sprite()
 	sprite.modulate = weapon.get_weapon_sprite_color()

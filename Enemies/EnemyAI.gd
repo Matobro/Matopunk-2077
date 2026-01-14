@@ -5,6 +5,7 @@ class_name EnemyAI
 signal set_movement_direction(direction: int)
 signal set_aim_position(pos: Vector2)
 signal call_shoot()
+signal set_run(value: bool)
 
 
 func initialize_ai(enemy: Enemy):

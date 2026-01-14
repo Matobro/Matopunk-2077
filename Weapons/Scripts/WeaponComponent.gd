@@ -22,7 +22,7 @@ signal reload_done(data: WeaponData, was_cancelled: bool)
 signal reload_progress(remaining: float, total: float)
 
 
-func swap_weapon(weapon_data: WeaponData):
+func swap_weapon(weapon_data: WeaponData, handicap: bool = false):
 	if current_weapon != null:
 		current_weapon.disconnect("magazine_changed", on_magazine_changed)
 		current_weapon.disconnect("shot_fired", on_shot_fired)
@@ -42,6 +42,9 @@ func swap_weapon(weapon_data: WeaponData):
 	emit_signal("ammo_changed", current_weapon.weapon_data.ammo_total)
 	emit_signal("magazine_changed", current_weapon.weapon_data.mag_left)
 	emit_signal("weapon_changed", current_weapon)
+
+	if handicap:
+		current_weapon.weapon_data.cooldown = current_weapon.weapon_data.cooldown * current_weapon.weapon_data.handicap_multiplier
 
 
 func _physics_process(delta: float) -> void:
