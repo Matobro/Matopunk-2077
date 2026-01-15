@@ -127,7 +127,7 @@ func handle_weapons() -> void:
 		return
 
 	if shoot:
-		weapon_component.try_shoot()
+		weapon_component.try_shoot(hit_component, self)
 
 	if reload_input:
 		weapon_component.reload()

@@ -2,7 +2,7 @@ extends Weapon
 
 var is_firing: bool = false
 
-func shoot():
+func shoot(shooter_hitbox: HitComponent, shooter_type):
 	if is_firing: return
 
 	is_firing = true
@@ -16,7 +16,7 @@ func shoot():
 			break
 
 		## Spawn bullet
-		spawn_bullet(barrel.global_rotation)
+		spawn_bullet(barrel.global_rotation, shooter_hitbox, shooter_type)
 
 		## Decrease gun ammo
 		weapon_data.use_ammo()

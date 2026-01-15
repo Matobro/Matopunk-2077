@@ -125,6 +125,7 @@ weapon_down={
 2d_physics/layer_6="Bullet"
 2d_physics/layer_7="Weapon"
 2d_physics/layer_8="enemy"
+2d_physics/layer_9="enemy_bullet"
 
 [rendering]
 

@@ -43,7 +43,6 @@ func setup_sight_radius():
 
 
 func on_area_enter(area: Area2D):
-	print("entered")
 	if area.is_in_group("player"):
 		var player = area.get_parent()
 		if player not in targets_in_sight:
@@ -52,11 +51,9 @@ func on_area_enter(area: Area2D):
 
 
 func on_area_exited(area: Area2D):
-	print("exited")
 	if area.is_in_group("player"):
 		var player = area.get_parent()
 		if player in targets_in_sight:
-			print("removing")
 			targets_in_sight.erase(player)
 
 
@@ -65,10 +62,9 @@ func ray_check():
 
 	for target in targets_in_sight:
 		if can_see_target(target):
-			print("can see")
 			emit_signal("spotted_target", target)
 		else:
-			print("cant see")
+			pass
 
 	queue_redraw()
 			
@@ -83,13 +79,19 @@ func can_see_target(target: Player) -> bool:
 	query.exclude = [self]
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
+	query.collision_mask = (1 << 4) - 1 # layers 1 - 4
 
 	var result = space_state.intersect_ray(query)
 
 	if result.is_empty():
 		return false
-	
-	return result.collider.get_parent() == target
+
+	var collider = result.collider
+
+	if collider.is_in_group("player"):
+		return collider.get_parent() == target
+
+	return false
 
 
 func _draw():

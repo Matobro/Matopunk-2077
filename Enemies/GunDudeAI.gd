@@ -21,6 +21,8 @@ var action_timer: float = 0.0
 
 @export_category("Aim Settings")
 @export var aim_variance: float = 0.0
+@export var reaim_time: float = 0.5
+var aim_timer: float = 0.0
 
 @export_category("Decision Settings")
 @export var chances = {
@@ -60,6 +62,13 @@ func run_ai(delta: float, enemy: Enemy):
                 wander(enemy)
 
     if current_action == Action.ENGAGE:
+        aim_timer += delta
+        if aim_timer > reaim_time:
+            aim_timer = 0.0
+            var aim = Vector2(target.global_position.x, (target.global_position.y - 24) + randf_range(-aim_variance, aim_variance))
+
+            emit_signal("set_aim_position", aim)
+
         engage()
 
         if global_position.distance_to(target.global_position) <= shoot_range:
@@ -70,6 +79,10 @@ func target_spotted(player: Player):
     target = player
     current_action = Action.ENGAGE
 
+    var aim = Vector2(target.global_position.x, (target.global_position.y - 24) + randf_range(-aim_variance, aim_variance))
+
+    emit_signal("set_aim_position", aim)
+
 
 func engage():
     if target == null:
@@ -78,11 +91,6 @@ func engage():
 
     var dist = global_position.distance_to(target.global_position)
     var player_side = -1 if global_position.x > target.global_position.x else 1
-    var aim = Vector2(target.global_position.x, (target.global_position.y - 24) + randf_range(-aim_variance, aim_variance))
-    emit_signal(
-        "set_aim_position",
-        aim
-    )
 
     if dist >= max_range and dist >= shoot_range:
         emit_signal("set_run", true)

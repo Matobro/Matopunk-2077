@@ -7,7 +7,10 @@ var bullet_lifetime: float = 5.0
 
 var bullet_damage: int = 0
 
-func initialize_bullet(bullet_data: BulletData, weapon_data: WeaponData):
+var shooter: HitComponent
+
+func initialize_bullet(bullet_data: BulletData, weapon_data: WeaponData, shooter_hitbox: HitComponent, shooter_type):
+	shooter = shooter_hitbox
 	if bullet_data == null: 
 		print("BulletData is null, destroying bullet")
 		queue_free() 
@@ -17,7 +20,15 @@ func initialize_bullet(bullet_data: BulletData, weapon_data: WeaponData):
 
 	var texture_size: Vector2 = $Sprite.texture.get_size()
 
-	$CollisionShape2D.shape.size = texture_size
+	var collider: CollisionShape2D = $CollisionShape2D
+	collider.shape.size = texture_size
+
+	if shooter_type is Player:
+		set_collision_layer_value(6, true)
+		set_collision_mask_value(8, true)
+	elif shooter_type is Enemy:
+		set_collision_layer_value(9, true)
+		set_collision_mask_value(4, true)
 
 	bullet_speed = bullet_data.bullet_speed
 	bullet_lifetime = bullet_data.bullet_lifetime
@@ -42,6 +53,7 @@ func on_body_entered(body):
 
 
 func on_area_entered(area: Area2D):
+	if area == shooter: return
 	if area.is_in_group("entity"):
 
 		if area.is_in_group("player"):

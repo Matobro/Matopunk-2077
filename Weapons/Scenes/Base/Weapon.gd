@@ -10,10 +10,10 @@ var bullet_data: BulletData
 signal magazine_changed(magazine: int)
 signal shot_fired(weapon: WeaponData)
 
-func shoot():
+func shoot(shooter_hitbox: HitComponent, shooter_type):
 	pass
 
-func spawn_bullet(bullet_rotation: float):
+func spawn_bullet(bullet_rotation: float, shooter_hitbox: HitComponent, shooter_type):
 	var bullet_instance: Bullet = weapon_data.bullet.instantiate()
 
 	## Setup transform
@@ -21,7 +21,7 @@ func spawn_bullet(bullet_rotation: float):
 	bullet_instance.global_position = barrel.global_position
 
 	## Setup bullet
-	bullet_instance.initialize_bullet(bullet_data, weapon_data)
+	bullet_instance.initialize_bullet(bullet_data, weapon_data, shooter_hitbox, shooter_type)
 	get_tree().current_scene.add_child(bullet_instance)
 
 

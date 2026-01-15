@@ -64,7 +64,7 @@ func _physics_process(delta: float) -> void:
 			on_reload_done()
 
 
-func try_shoot():
+func try_shoot(shooter_hitbox: HitComponent, shooter_type):
 	if !current_weapon or !can_shoot: return
 	if is_reloading: return
 
@@ -72,13 +72,13 @@ func try_shoot():
 		reload()
 		return
 		
-	shoot()
+	shoot(shooter_hitbox, shooter_type)
 
 
-func shoot():
+func shoot(shooter_hitbox: HitComponent, shooter_type):
 	cooldown_timer = current_weapon.weapon_data.get_weapon_cooldown()
 	can_shoot = false
-	current_weapon.shoot()
+	current_weapon.shoot(shooter_hitbox, shooter_type)
 
 
 func on_shot_fired(data: WeaponData):

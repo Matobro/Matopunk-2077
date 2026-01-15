@@ -12,6 +12,8 @@ class_name Enemy
 @export var stat_component: StatComponent
 @export var ai_component: EnemyAI
 @export var sight_component: SightComponent
+@export var left_ray: RayCast2D
+@export var right_ray: RayCast2D
 
 @export_category("Enemy Settings")
 @export var weapon: WeaponData
@@ -33,6 +35,7 @@ func _ready() -> void:
 	connect_signals()
 	ai_component.initialize_ai(self)
 	EntityManager.register_enemy(self)
+	weapon = weapon.duplicate(true)
 	equip_weapon()
 
 	
@@ -70,6 +73,15 @@ func apply_physics(delta: float) -> void:
 
 
 func handle_movement() -> void:
+	var can_move
+	if movement_direction == -1 and moving_forward or movement_direction == 1 and !moving_forward:
+		can_move = can_move_forward(-movement_direction)
+	else:
+		can_move = can_move_forward(movement_direction)
+	
+	if !can_move:
+		movement_direction = 0
+
 	movement_component.handle_horizontal_movement(
 		self,
 		movement_direction,
@@ -114,8 +126,25 @@ func on_target_spotted(player: Player):
 
 
 func call_shoot():
-	weapon_component.try_shoot()
+	weapon_component.try_shoot(hit_component, self)
 
 
 func set_run(value):
 	run = value
+
+
+func can_move_forward(dir: int) -> bool:
+	var ray = left_ray if dir == -1 else right_ray
+
+	if !ray.is_colliding():
+		return false
+
+	var collider = ray.get_collider()
+
+	if collider is TileMapLayer and collider.name == "Walls":
+		return false
+
+	if collider is TileMapLayer and collider.name == "Ground":
+		return true
+	
+	return false
