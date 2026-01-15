@@ -99,6 +99,10 @@ func slide_input() -> bool:
 	return false
 
 
+func up_input() -> bool:
+	return Input.is_action_pressed("up")
+	
+
 ## 1 for scroll up, 2 for scroll down, 0 for no input
 func weapon_scroll_input() -> int:
 	if Input.is_action_just_pressed("weapon_up"):

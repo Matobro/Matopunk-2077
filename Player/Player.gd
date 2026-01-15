@@ -12,6 +12,7 @@ class_name Player
 @export var weapon_component: WeaponComponent
 @export var stat_component: StatComponent
 @export var hit_component: HitComponent
+@export var trigger_component: TriggerHitComponent
 
 @export var health_ui: HealthUI
 @export var gun_data_ui: GunDataUI
@@ -35,21 +36,28 @@ var slide_state: bool
 var moving_forward: bool
 var crouch: bool
 var run: bool
+var can_enter_stairs: bool
+var on_stairs: bool
 
+var default_mask
+var stair_exit_timer: float = 0.0
+
+const STAIR_EXIT_DELAY: float = 0.2
 
 func _ready() -> void:
 	connect_signals()
 	EntityManager.register_player(self)
+	default_mask = collision_mask
 
 
 func _physics_process(delta: float) -> void:
 	read_inputs()
-	update_state()
 	apply_physics(delta)
 	handle_movement()
 	handle_weapons()
 	handle_animation()
 	move_and_slide()
+	update_state(delta)
 
 
 func connect_signals():
@@ -75,6 +83,9 @@ func connect_signals():
 	movement_component.slide_started.connect(on_slide_start)
 	movement_component.slide_ended.connect(on_slide_end)
 
+	trigger_component.stairs_entered.connect(on_stairs_entered)
+	trigger_component.stairs_exited.connect(on_stairs_exited)
+
 func read_inputs() -> void:
 	input_x = input_component.input_horizontal
 	aim = input_component.get_aim_position()
@@ -87,7 +98,7 @@ func read_inputs() -> void:
 	weapon_scroll = input_component.weapon_scroll_input()
 
 
-func update_state() -> void:
+func update_state(delta: float) -> void:
 	is_grounded = gravity_component.is_grounded(self)
 	is_on_platform = gravity_component.is_on_one_way_platform()
 	slide_state = movement_component.get_slide_state()
@@ -96,9 +107,36 @@ func update_state() -> void:
 	crouch = crouch_input
 	run = run_input and !crouch
 
+	if stair_exit_timer > 0:
+		stair_exit_timer -= delta
+
+	# Exit stairs if leaving or crouching
+	if on_stairs and (crouch_input or !can_enter_stairs):
+		set_stairs_collider(false)
+		stair_exit_timer = STAIR_EXIT_DELAY
+
+	# Enter stairs via input
+	if can_enter_stairs and input_component.up_input():
+		set_stairs_collider(true)
+
+	# Enter stairs if falling on em
+	if velocity.y > 0 and !on_stairs and stair_exit_timer <= 0:
+		set_stairs_collider(true)
+
 
 func apply_physics(delta: float) -> void:
 	gravity_component.apply_gravity(self, delta)
+
+
+func set_stairs_collider(value: bool):
+	if value:
+		print("entering")
+		collision_mask = default_mask | (1 << 9)
+	else:
+		print("exiting")
+		collision_mask = default_mask
+
+	on_stairs = value
 
 
 func handle_movement() -> void:
@@ -182,3 +220,11 @@ func on_slide_start():
 
 func on_slide_end():
 	hit_component.set_collision_enabled(true)
+
+
+func on_stairs_entered():
+	can_enter_stairs = true
+
+
+func on_stairs_exited():
+	can_enter_stairs = false

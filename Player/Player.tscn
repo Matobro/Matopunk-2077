@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://do6p35xn2b4j"]
+[gd_scene load_steps=49 format=3 uid="uid://do6p35xn2b4j"]
 
 [ext_resource type="Texture2D" uid="uid://bdn3hlr1yf6wm" path="res://Player/Art/head.png" id="1_ddoul"]
 [ext_resource type="Script" uid="uid://cyoosh2y06xs" path="res://Player/Player.gd" id="1_vlldt"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://bshx6hiwe21cd" path="res://Player/PlayerActions.gd" id="19_d7xyo"]
 [ext_resource type="Script" uid="uid://5t7ivemd18nc" path="res://Entity/Scripts/HitComponent.gd" id="20_evw08"]
 [ext_resource type="PackedScene" uid="uid://dwy7n22suukg6" path="res://FX/BloodParticle.tscn" id="21_roy6y"]
+[ext_resource type="Script" uid="uid://b6p506hwynicu" path="res://Entity/Scripts/TriggerHitComponent.gd" id="23_ps8ct"]
 
 [sub_resource type="Animation" id="Animation_0j2ni"]
 length = 0.001
@@ -403,7 +404,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddoul"]
-size = Vector2(14, 4)
+size = Vector2(11, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0k0e"]
 
@@ -487,12 +488,13 @@ font_size = 24
 font_color = Color(0.80710554, 0.008367025, 2.117753e-06, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evw08"]
-size = Vector2(11, 31)
+size = Vector2(16, 4)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_actions", "gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "stat_component", "hit_component", "health_ui", "gun_data_ui") groups=["entity", "player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_actions", "gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "stat_component", "hit_component", "trigger_component", "health_ui", "gun_data_ui") groups=["entity", "player"]]
 z_index = 50
 collision_layer = 8
 collision_mask = 23
+floor_constant_speed = true
 script = ExtResource("1_vlldt")
 player_actions = NodePath("PlayerActions")
 gravity_component = NodePath("GravityComponent")
@@ -503,6 +505,7 @@ inventory_component = NodePath("InventoryComponent")
 weapon_component = NodePath("Arms/ArmLeft/Hand/WeaponComponent")
 stat_component = NodePath("StatComponent")
 hit_component = NodePath("HitComponent")
+trigger_component = NodePath("TriggerHitComponent")
 health_ui = NodePath("CanvasLayer/Health")
 gun_data_ui = NodePath("CanvasLayer/GunData")
 
@@ -549,7 +552,7 @@ hframes = 2
 frame = 1
 
 [node name="GroundCheck" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -2)
+position = Vector2(-0.5, -2)
 shape = SubResource("RectangleShape2D_ddoul")
 debug_color = Color(0, 1, 0, 1)
 
@@ -736,3 +739,14 @@ metadata/_custom_type_script = "uid://5t7ivemd18nc"
 position = Vector2(0.5, -16.5)
 shape = SubResource("RectangleShape2D_evw08")
 debug_color = Color(0.964333, 0, 0.4962629, 0.41960785)
+
+[node name="TriggerHitComponent" type="Area2D" parent="." groups=["entity", "player"]]
+collision_layer = 8
+collision_mask = 1920
+script = ExtResource("23_ps8ct")
+metadata/_custom_type_script = "uid://5t7ivemd18nc"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerHitComponent"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_evw08")
+debug_color = Color(1, 1, 1, 0.41960785)
