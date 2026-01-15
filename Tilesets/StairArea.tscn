@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://debktfn5p34ka"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_l6m4n"]
-points = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
+points = PackedVector2Array(-24, -20, 24, -20, 24, 20, -24, 20)
 
 [node name="StairArea" type="Area2D" groups=["stairs"]]
 z_index = 500

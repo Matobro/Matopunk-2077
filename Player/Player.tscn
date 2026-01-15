@@ -488,7 +488,7 @@ font_size = 24
 font_color = Color(0.80710554, 0.008367025, 2.117753e-06, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evw08"]
-size = Vector2(16, 4)
+size = Vector2(4, 4)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_actions", "gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "stat_component", "hit_component", "trigger_component", "health_ui", "gun_data_ui") groups=["entity", "player"]]
 z_index = 50

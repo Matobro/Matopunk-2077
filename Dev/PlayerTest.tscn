@@ -1,7 +1,6 @@
-[gd_scene load_steps=53 format=4 uid="uid://dqwf71esamcyw"]
+[gd_scene load_steps=52 format=4 uid="uid://dqwf71esamcyw"]
 
 [ext_resource type="PackedScene" uid="uid://do6p35xn2b4j" path="res://Player/Player.tscn" id="1_kyyvb"]
-[ext_resource type="Script" uid="uid://o62iesaqolw4" path="res://Dev/MapData.gd" id="1_l27di"]
 [ext_resource type="Texture2D" uid="uid://jdnmi7rflvuf" path="res://Background/Cyberpunk/ship_01.png" id="7_gyvbi"]
 [ext_resource type="Texture2D" uid="uid://bjw8b5uipr0kb" path="res://Background/Cyberpunk/ship_02.png" id="8_ta6c2"]
 [ext_resource type="Texture2D" uid="uid://c2xjdftqnls7u" path="res://Background/Cyberpunk/ship_03.png" id="9_57lw0"]
@@ -400,11 +399,7 @@ size = Vector2(191, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gsvho"]
 size = Vector2(48, 1)
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("stairs_layer")]
-script = ExtResource("1_l27di")
-stairs_layer = NodePath("Tilemap/Stairs")
-stairs_collision_layer = 10
-stair_entrance_tiles = Array[Vector2i]([Vector2i(5, 0), Vector2i(7, 0), Vector2i(5, 1), Vector2i(7, 1)])
+[node name="World" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [-205.0]
 
 [node name="Player" parent="." instance=ExtResource("1_kyyvb")]
@@ -761,15 +756,17 @@ tile_map_data = PackedByteArray("AAATAPb/AQADAAEAAAASAPj/AQAEAAEAAAASAPf/AQADAAE
 tile_set = SubResource("TileSet_grs5s")
 script = ExtResource("29_grs5s")
 stair_area = ExtResource("30_v1iky")
-stair_solid_tile_coords = Array[Vector2i]([Vector2i(3, 1), Vector2i(9, 1)])
+stair_left_tiles = Array[Vector2i]([Vector2i(9, 1)])
+stair_right_tiles = Array[Vector2i]([Vector2i(3, 1)])
 
 [node name="Railings" type="TileMapLayer" parent="Tilemap"]
 z_index = 46
-tile_map_data = PackedByteArray("AAARAPj/AQADAAAAAAAQAPj/AQAHAAAAAAASAPf/AQADAAAAAAARAPf/AQAEAAAAAAATAPb/AQADAAAAAAASAPb/AQAEAAAAAAATAPX/AQAEAAAAAAAUAPX/AQAFAAAAAAD8//H/AQAJAAAAAAD9//L/AQAJAAAAAAD+//P/AQAJAAAAAAD///T/AQAJAAAAAAAAAPX/AQAJAAAAAAABAPb/AQAJAAAAAAACAPf/AQAJAAAAAAADAPj/AQAJAAAAAAADAPf/AQAIAAAAAAACAPb/AQAIAAAAAAABAPX/AQAIAAAAAAAAAPT/AQAIAAAAAAD///P/AQAIAAAAAAD+//L/AQAIAAAAAAD9//H/AQAIAAAAAAD8//D/AQAIAAAAAAD7//D/AQAHAAAAAAAEAPj/AQAFAAAAAAA=")
+tile_map_data = PackedByteArray("AAARAPj/AQADAAAAAAASAPf/AQADAAAAAAARAPf/AQAEAAAAAAATAPb/AQADAAAAAAASAPb/AQAEAAAAAAATAPX/AQAEAAAAAAD8//H/AQAJAAAAAAD9//L/AQAJAAAAAAD+//P/AQAJAAAAAAD///T/AQAJAAAAAAAAAPX/AQAJAAAAAAABAPb/AQAJAAAAAAACAPf/AQAJAAAAAAADAPj/AQAJAAAAAAADAPf/AQAIAAAAAAACAPb/AQAIAAAAAAABAPX/AQAIAAAAAAAAAPT/AQAIAAAAAAD///P/AQAIAAAAAAD+//L/AQAIAAAAAAD9//H/AQAIAAAAAAD8//D/AQAIAAAAAAD7//D/AQAHAAAAAAAEAPj/AQAFAAAAAAAQAPj/AQAHAAAAAAAUAPX/AQAFAAAAAAA=")
 tile_set = ExtResource("26_qtty3")
 script = ExtResource("29_grs5s")
 stair_area = ExtResource("30_v1iky")
-stair_solid_tile_coords = Array[Vector2i]([Vector2i(5, 0), Vector2i(7, 0), Vector2i(5, 1), Vector2i(7, 1)])
+stair_left_tiles = Array[Vector2i]([Vector2i(7, 0), Vector2i(7, 1)])
+stair_right_tiles = Array[Vector2i]([Vector2i(5, 0), Vector2i(5, 1)])
 is_entrance = true
 
 [node name="PostProsessing" type="WorldEnvironment" parent="."]
