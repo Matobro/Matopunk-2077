@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://do6p35xn2b4j"]
+[gd_scene load_steps=50 format=3 uid="uid://do6p35xn2b4j"]
 
 [ext_resource type="Texture2D" uid="uid://bdn3hlr1yf6wm" path="res://Player/Art/head.png" id="1_ddoul"]
 [ext_resource type="Script" uid="uid://cyoosh2y06xs" path="res://Player/Player.gd" id="1_vlldt"]
@@ -404,7 +404,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddoul"]
-size = Vector2(11, 4)
+size = Vector2(9, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0k0e"]
 
@@ -487,7 +487,10 @@ font = ExtResource("13_p7tob")
 font_size = 24
 font_color = Color(0.80710554, 0.008367025, 2.117753e-06, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_evw08"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ps8ct"]
+size = Vector2(6, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7uipr"]
 size = Vector2(4, 4)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_actions", "gravity_component", "movement_component", "input_component", "animation_component", "inventory_component", "weapon_component", "stat_component", "hit_component", "trigger_component", "health_ui", "gun_data_ui") groups=["entity", "player"]]
@@ -552,7 +555,7 @@ hframes = 2
 frame = 1
 
 [node name="GroundCheck" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -2)
+position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_ddoul")
 debug_color = Color(0, 1, 0, 1)
 
@@ -568,7 +571,6 @@ jump_force = 250.0
 slide_duration = 0.3
 
 [node name="InputComponent" type="Node2D" parent="." node_paths=PackedStringArray("crosshair")]
-visible = false
 script = ExtResource("8_s1rgi")
 crosshair = NodePath("../Crosshair")
 
@@ -736,17 +738,17 @@ blood_particle = ExtResource("21_roy6y")
 metadata/_custom_type_script = "uid://5t7ivemd18nc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
-position = Vector2(0.5, -16.5)
-shape = SubResource("RectangleShape2D_evw08")
+position = Vector2(0, -15.5)
+shape = SubResource("RectangleShape2D_ps8ct")
 debug_color = Color(0.964333, 0, 0.4962629, 0.41960785)
 
-[node name="TriggerHitComponent" type="Area2D" parent="." groups=["entity", "player"]]
+[node name="TriggerHitComponent" type="Area2D" parent="." groups=["player"]]
 collision_layer = 8
-collision_mask = 1920
+collision_mask = 1536
 script = ExtResource("23_ps8ct")
 metadata/_custom_type_script = "uid://5t7ivemd18nc"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerHitComponent"]
 position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_evw08")
+shape = SubResource("RectangleShape2D_7uipr")
 debug_color = Color(1, 1, 1, 0.41960785)

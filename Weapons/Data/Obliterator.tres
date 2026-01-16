@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=10 format=3 uid="uid://cqfne8xteokut"]
+
+[ext_resource type="PackedScene" uid="uid://dxk14kcccbsen" path="res://Weapons/Bullets/Data/BulletBase.tscn" id="1_j8oci"]
+[ext_resource type="Resource" uid="uid://c3jcx5lsnfcuo" path="res://Weapons/Bullets/Data/ObliteratorBullet.tres" id="2_1qov1"]
+[ext_resource type="AudioStream" uid="uid://cyoaggyvkerhs" path="res://Weapons/Sounds/smg_reload.mp3" id="2_hjd67"]
+[ext_resource type="Script" uid="uid://dqao67p2qiid5" path="res://Weapons/Scripts/WeaponData.gd" id="3_1qov1"]
+[ext_resource type="PackedScene" uid="uid://bmw6dmq1wayd4" path="res://Muzzleflashes/muzzleflash_01.tscn" id="3_mr3jw"]
+[ext_resource type="Texture2D" uid="uid://dwq67muxk5slu" path="res://Weapons/Sprites/obliterator_icon.png" id="5_j8oci"]
+[ext_resource type="AudioStream" uid="uid://bl2wnqpnrhxvw" path="res://Weapons/Sounds/obliterator_fire.mp3" id="6_1qov1"]
+[ext_resource type="Texture2D" uid="uid://dtgaix2q3cs6k" path="res://Weapons/Sprites/obliterator.png" id="7_hjd67"]
+[ext_resource type="PackedScene" uid="uid://bfysw8u2eouxn" path="res://Weapons/Scenes/Obliterator.tscn" id="8_1qov1"]
+
+[resource]
+script = ExtResource("3_1qov1")
+weapon_name = "Obliterator"
+weapon_scene = ExtResource("8_1qov1")
+weapon_sprite = ExtResource("7_hjd67")
+weapon_sprite_color = Color(1, 0.27450982, 0.21176471, 1)
+weapon_icon = ExtResource("5_j8oci")
+bullet = ExtResource("1_j8oci")
+bullet_data = ExtResource("2_1qov1")
+reload_time = 5.0
+mag_size = 6
+repick_ammo_value = 30
+max_ammo = 90
+damage = 50
+kick_strength = 50.0
+kick_fade_speed = 10.0
+pick_up_size = 0.5
+shoot = ExtResource("6_1qov1")
+reload = ExtResource("2_hjd67")
+muzzle_effects = Array[PackedScene]([ExtResource("3_mr3jw")])
+metadata/_custom_type_script = "uid://dqao67p2qiid5"

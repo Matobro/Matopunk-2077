@@ -5,6 +5,15 @@ extends TileMapLayer
 @export var stair_right_tiles: Array[Vector2i]
 @export var is_entrance: bool
 
+var left_side_vertical_correction: int = 16
+var left_side_horizontal_correction: int = 30
+
+var right_side_vertical_correction: int = 16
+var right_side_horizontal_correction: int = 5
+
+var right_side_stairs_rotation = 270 #degrees
+
+
 func _ready() -> void:
 	setup_stairs_area()
 
@@ -19,15 +28,15 @@ func setup_stairs_area():
 			area.position = map_to_local(cell)
 			if is_entrance and tile_coords in stair_left_tiles:
 				col.rotation = 0.0
-				area.position.y += 16
-				area.position.x -= 30
+				area.position.y += left_side_vertical_correction
+				area.position.x -= left_side_horizontal_correction
 
 			elif is_entrance and tile_coords in stair_right_tiles:
 				col.rotation = 0.0
-				area.position.y += 16
-				area.position.x -= 5
+				area.position.y += right_side_vertical_correction
+				area.position.x -= right_side_horizontal_correction
 
 			elif !is_entrance and tile_coords in stair_right_tiles:
-				area.rotation = deg_to_rad(270)
+				area.rotation = deg_to_rad(right_side_stairs_rotation)
 
 			add_child(area)

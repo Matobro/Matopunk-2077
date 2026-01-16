@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfysw8u2eouxn"]
+
+[ext_resource type="Script" uid="uid://tvklnr6prc3y" path="res://Weapons/Data/Weapon_Smg.gd" id="1_w3qee"]
+[ext_resource type="Texture2D" uid="uid://dtgaix2q3cs6k" path="res://Weapons/Sprites/obliterator.png" id="2_w3qee"]
+
+[node name="Obliterator" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_w3qee")
+
+[node name="WeaponSprite" type="Sprite2D" parent="."]
+modulate = Color(0.0383972, 0.0383972, 0.0383972, 1)
+position = Vector2(2, 2)
+texture = ExtResource("2_w3qee")
+
+[node name="Barrel" type="Marker2D" parent="."]
+position = Vector2(12, -2)

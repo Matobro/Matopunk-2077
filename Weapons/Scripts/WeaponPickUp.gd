@@ -11,7 +11,9 @@ func _ready():
 	if is_debug:
 		assign_weapon(weapon)
 
+
 func assign_weapon(weapon_ref: WeaponData):
 	weapon = weapon_ref.duplicate(true)
 	sprite.texture = weapon.get_weapon_sprite()
 	sprite.modulate = weapon.get_weapon_sprite_color()
+	sprite.scale = weapon.get_weapon_pick_up_size() * sprite.scale

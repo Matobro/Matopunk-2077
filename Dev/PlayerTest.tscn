@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://dqwf71esamcyw"]
+[gd_scene load_steps=53 format=4 uid="uid://dqwf71esamcyw"]
 
 [ext_resource type="PackedScene" uid="uid://do6p35xn2b4j" path="res://Player/Player.tscn" id="1_kyyvb"]
 [ext_resource type="Texture2D" uid="uid://jdnmi7rflvuf" path="res://Background/Cyberpunk/ship_01.png" id="7_gyvbi"]
@@ -42,6 +42,7 @@
 [ext_resource type="PackedScene" uid="uid://vl08kigx1lpn" path="res://Weapons/Scenes/Base/WeaponPickUp.tscn" id="37_65tei"]
 [ext_resource type="Resource" uid="uid://bbljodtbehq3y" path="res://Weapons/Data/Smg.tres" id="38_gsvho"]
 [ext_resource type="PackedScene" uid="uid://d4evga38luvc" path="res://Enemies/Enemy.tscn" id="39_qtty3"]
+[ext_resource type="Resource" uid="uid://cqfne8xteokut" path="res://Weapons/Data/Obliterator.tres" id="42_v1iky"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fx8g5"]
 texture = ExtResource("17_pvuc5")
@@ -595,7 +596,6 @@ position = Vector2(0, 402.5)
 texture = ExtResource("15_4t6a4")
 
 [node name="CloseBackground" type="Node2D" parent="Background"]
-visible = false
 light_mask = 512
 
 [node name="Buildings_4" type="Parallax2D" parent="Background/CloseBackground"]
@@ -989,26 +989,6 @@ position = Vector2(224, -235)
 weapon = ExtResource("38_gsvho")
 is_debug = true
 
-[node name="WeaponPickUp3" parent="." instance=ExtResource("37_65tei")]
-position = Vector2(193, -235)
-weapon = ExtResource("38_gsvho")
-is_debug = true
-
-[node name="WeaponPickUp4" parent="." instance=ExtResource("37_65tei")]
-position = Vector2(161, -235)
-weapon = ExtResource("38_gsvho")
-is_debug = true
-
-[node name="WeaponPickUp5" parent="." instance=ExtResource("37_65tei")]
-position = Vector2(455, -234)
-weapon = ExtResource("36_q2622")
-is_debug = true
-
-[node name="WeaponPickUp6" parent="." instance=ExtResource("37_65tei")]
-position = Vector2(420, -233)
-weapon = ExtResource("36_q2622")
-is_debug = true
-
 [node name="WeaponPickUp7" parent="." instance=ExtResource("37_65tei")]
 position = Vector2(389, -233)
 weapon = ExtResource("36_q2622")
@@ -1019,8 +999,21 @@ position = Vector2(357, -233)
 weapon = ExtResource("36_q2622")
 is_debug = true
 
+[node name="WeaponPickUp9" parent="." instance=ExtResource("37_65tei")]
+position = Vector2(420, -233)
+weapon = ExtResource("42_v1iky")
+is_debug = true
+
+[node name="WeaponPickUp10" parent="." instance=ExtResource("37_65tei")]
+position = Vector2(451, -233)
+weapon = ExtResource("42_v1iky")
+is_debug = true
+
 [node name="Enemy" parent="." instance=ExtResource("39_qtty3")]
 position = Vector2(-287, -490)
+
+[node name="Enemy3" parent="." instance=ExtResource("39_qtty3")]
+position = Vector2(473, -230)
 
 [node name="Enemy2" parent="." instance=ExtResource("39_qtty3")]
 position = Vector2(-227, -490)

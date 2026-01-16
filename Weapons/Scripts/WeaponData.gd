@@ -23,6 +23,7 @@ class_name WeaponData
 @export var bullets: int = 1
 @export var kick_strength: float = 10.0
 @export var kick_fade_speed:float = 5.0
+@export var pick_up_size: float = 1.0
 
 @export_category("Sounds")
 @export var shoot: AudioStream
@@ -100,6 +101,10 @@ func get_weapon_sprite() -> Texture2D:
 
 func get_weapon_sprite_color() -> Color:
     return weapon_sprite_color
+
+
+func get_weapon_pick_up_size() -> float:
+    return pick_up_size
 
 
 func get_weapon_icon() -> Texture2D:
